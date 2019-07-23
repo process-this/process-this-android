@@ -2,8 +2,10 @@
   <string name="app_name">Process This</string>
   <string name="title_home">Home</string>
   <string name="title_dashboard">Dashboard</string>
-  <string name="title_notifications">Notifications</string>
+  <string name="userprofile">Profile</string>
   <string name="login_failed">Unable to Sign-In</string>
   <string name="sign_out">Sign-Out</string>
+  <string name="featured">Featured</string>
+  <string name="add">Add</string>
 
 </resources>
