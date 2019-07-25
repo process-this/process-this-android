@@ -1,5 +1,6 @@
 package io.github.processthis.client.controller;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +16,14 @@ import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
 
 public class SketchViewFragment extends Fragment {
+  private WebView preview;
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View frag = inflater.inflate(R.layout.ide_fragment, container, false);
 
-    WebView preview = frag.findViewById(R.id.sketch_view);
+    preview = frag.findViewById(R.id.sketch_view);
     preview.setWebChromeClient(new WebChromeClient() {
       @Override
       public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -55,8 +57,15 @@ public class SketchViewFragment extends Fragment {
     settings.setSupportZoom(true);
     settings.setDefaultTextEncodingName("utf-8");
 
-    preview.loadUrl("file:///android_asset/sketch_web_view.html");
 
+
+    preview.draw(new Canvas());
     return frag;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    preview.loadUrl("file:///android_asset/sketch_web_view.html");
   }
 }

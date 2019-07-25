@@ -8,11 +8,25 @@
   android:layout_height="match_parent"
   tools:context=".controller.MainActivity">
 
+<!--  <fragment-->
+<!--    android:name="io.github.processthis.client.controller.SketchViewFragment"-->
+<!--    android:id="@+id/sketch_preview"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"/>-->
+
   <fragment
-    android:name="io.github.processthis.client.controller.SketchViewFragment"
-    android:id="@+id/sketch_preview"
+    android:id="@+id/nav_host_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="0dp"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    app:defaultNavHost="true"
+    app:layout_constraintBottom_toTopOf="@+id/navigation"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+
+    app:navGraph="@navigation/navgraph"/>
+
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/navigation"
