@@ -1,7 +1,7 @@
 <resources>
   <string name="app_name">Process This</string>
-  <string name="title_home">Home</string>
-  <string name="title_dashboard">Dashboard</string>
+  <string name="home">Home</string>
+  <string name="notifications">Notifications</string>
   <string name="userprofile">Profile</string>
   <string name="login_failed">Unable to Sign-In</string>
   <string name="sign_out">Sign-Out</string>

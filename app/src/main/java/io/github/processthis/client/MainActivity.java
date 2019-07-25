@@ -3,12 +3,13 @@ package io.github.processthis.client;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import androidx.annotation.NonNull;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import io.github.processthis.client.service.GoogleSignInService;
+import io.github.processthis.client.view.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,19 +22,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
       switch (item.getItemId()) {
         case R.id.navigation_home:
-          mTextMessage.setText(R.string.title_home);
+          mTextMessage.setText(R.string.home);
           return true;
-        case R.id.navigation_dashboard:
-          mTextMessage.setText(R.string.title_dashboard);
-          return true;
-        case R.id.navigation_userprofile:
-          mTextMessage.setText(R.string.userprofile);
+        case R.id.navigation_featured:
+          mTextMessage.setText(R.string.featured);
           return true;
         case R.id.navigation_add:
           mTextMessage.setText(R.string.add);
           return true;
-        case R.id.navigation_featured:
-          mTextMessage.setText(R.string.featured);
+        case R.id.navigation_notifications:
+          mTextMessage.setText(R.string.notifications);
+          return true;
+        case R.id.navigation_userprofile:
+          mTextMessage.setText(R.string.userprofile);
           return true;
       }
       return false;

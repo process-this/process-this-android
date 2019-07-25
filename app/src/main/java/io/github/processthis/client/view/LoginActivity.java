@@ -1,4 +1,4 @@
-package io.github.processthis.client;
+package io.github.processthis.client.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import io.github.processthis.client.MainActivity;
+import io.github.processthis.client.R;
 import io.github.processthis.client.service.GoogleSignInService;
 
 public class LoginActivity extends AppCompatActivity {
