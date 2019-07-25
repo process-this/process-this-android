@@ -7,18 +7,18 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 import io.github.processthis.client.ProcessThisDatabase.Converters;
-import io.github.processthis.client.model.File;
 import io.github.processthis.client.model.Sketch;
-import io.github.processthis.client.model.dao.FileDao;
+import io.github.processthis.client.model.Source;
+import io.github.processthis.client.model.dao.SourceDao;
 import io.github.processthis.client.model.dao.SketchDao;
 import java.util.Date;
 
-@Database(entities = {Sketch.class, File.class}, version = 1)
+@Database(entities = {Sketch.class, Source.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class ProcessThisDatabase extends RoomDatabase {
 
     public abstract SketchDao SketchDao();
-    public abstract FileDao FileDao();
+    public abstract SourceDao SourceDao();
     private static ProcessThisDatabase INSTANCE;
 
     public static ProcessThisDatabase getInstance(Context context) {

@@ -9,11 +9,15 @@ import java.util.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = Sketch.class,
 childColumns = "sketch_id", parentColumns = "sketch_id"))
-public class File {
+public class Source {
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "file_id")
-  private long fileId;
+  @ColumnInfo(name = "source_id")
+  private long sourceId;
+
+  public void setSketchId(long sketchId) {
+    this.sketchId = sketchId;
+  }
 
   @NonNull
   @ColumnInfo(name = "sketch_id")
@@ -21,7 +25,7 @@ public class File {
 
   @NonNull
   @ColumnInfo(name = "file_name")
-  private String fileName;
+  private String sourceName;
 
   @NonNull
   @ColumnInfo(name = "artist_name")
@@ -31,7 +35,7 @@ public class File {
 
   private Date updated;
 
-  public File() {
+  public Source() {
   }
 
 
@@ -41,21 +45,21 @@ public class File {
 
 
 
-  public long getFileId() {
-    return fileId;
+  public long getSourceId() {
+    return sourceId;
   }
 
-  public void setFileId(long fileId) {
-    this.fileId = fileId;
+  public void setSourceId(long sourceId) {
+    this.sourceId = sourceId;
   }
 
   @NonNull
-  public String getFileName() {
-    return fileName;
+  public String getSourceName() {
+    return sourceName;
   }
 
-  public void setFileName(@NonNull String fileName) {
-    this.fileName = fileName;
+  public void setSourceName(@NonNull String sourceName) {
+    this.sourceName = sourceName;
   }
 
   @NonNull
