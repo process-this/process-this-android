@@ -19,6 +19,7 @@ import io.github.processthis.client.view.HomeFragment;
 import io.github.processthis.client.view.LoginActivity;
 import io.github.processthis.client.view.UserProfileFragment;
 
+
 public class MainActivity extends AppCompatActivity {
 
 //  private SketchViewFragment sketchView;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     getMenuInflater().inflate(R.menu.options, menu);
     return true;
   }
+
 
   /**
    * Currently contains the only option in the options menu, to sign out.
