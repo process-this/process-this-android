@@ -8,7 +8,6 @@
           <compositeBuild compositeDefinitionSource="SCRIPT" />
         </compositeConfiguration>
         <option name="delegatedBuild" value="false" />
-        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$PROJECT_DIR$/../hangman-bugfix-nevdiaz/src/edu/cnm/deepdive/hangman" />
@@ -18,6 +17,7 @@
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
+        <option name="testRunner" value="PLATFORM" />
         <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>

@@ -1,0 +1,120 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "c621b3a9d2c4fc798c3a970ca8d17e22",
+    "entities": [
+      {
+        "tableName": "Sketch",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sketch_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sketch_title` TEXT NOT NULL, `sketch_description` TEXT, `files` INTEGER NOT NULL, `is_shared` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "sketchId",
+            "columnName": "sketch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sketchTitle",
+            "columnName": "sketch_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sketchDescription",
+            "columnName": "sketch_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numberOfFiles",
+            "columnName": "files",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isShared",
+            "columnName": "is_shared",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sketch_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Source",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`source_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sketch_id` INTEGER NOT NULL, `file_name` TEXT NOT NULL, `artist_name` TEXT NOT NULL, `created` INTEGER, `updated` INTEGER, FOREIGN KEY(`sketch_id`) REFERENCES `Sketch`(`sketch_id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "sourceId",
+            "columnName": "source_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sketchId",
+            "columnName": "sketch_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceName",
+            "columnName": "file_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "artistName",
+            "columnName": "artist_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updated",
+            "columnName": "updated",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "source_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Sketch",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sketch_id"
+            ],
+            "referencedColumns": [
+              "sketch_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c621b3a9d2c4fc798c3a970ca8d17e22')"
+    ]
+  }
+}
