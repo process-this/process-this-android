@@ -8,7 +8,7 @@ function setup(){
 
 function draw(){
 	if (mouseIsPressed){
-		alert(mouseX);
+		print(mouseX);
 		fill(0);
 	}
 	else{
