@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "CLIENT_ID", '"1047387193904-kar35il41atr51pdi8t0u1q6lcu6b4ml.apps.googleusercontent.com"'
+        buildConfigField "String", "AUTHORIZATION_FORMAT", '"Bearer %s"'
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
