@@ -1,7 +1,14 @@
 package io.github.processthis.client.controller;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +19,22 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.BufferType;
 import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
 
 public class SketchViewFragment extends Fragment {
   private WebView preview;
+  private EditText codeEditor;
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View frag = inflater.inflate(R.layout.ide_fragment, container, false);
 
+    codeEditor = frag.findViewById(R.id.editor);
     preview = frag.findViewById(R.id.sketch_view);
     preview.setWebChromeClient(new WebChromeClient() {
       @Override
@@ -57,15 +69,26 @@ public class SketchViewFragment extends Fragment {
     settings.setSupportZoom(true);
     settings.setDefaultTextEncodingName("utf-8");
 
+    SpannableString spannable = new SpannableString("Hello SpannableString Example.");
+    ForegroundColorSpan backgroundColorSpan = new ForegroundColorSpan(Color.GREEN);
 
+    spannable.setSpan(new ForegroundColorSpan(Color.GREEN), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-    preview.draw(new Canvas());
+    spannable.setSpan(new ForegroundColorSpan(Color.GREEN), 10, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+    codeEditor.setText(spannable, BufferType.SPANNABLE);
+
     return frag;
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    preview.loadUrl("file:///android_asset/sketch_web_view.html");
+  }
+
+  private SpannableString highLightText(String text){
+    SpannableString result = new SpannableString(text);
+
+    return result;
   }
 }

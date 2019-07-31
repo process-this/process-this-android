@@ -1,6 +1,5 @@
 
 function setup(){
-	alert('Hello, world!');
 	createCanvas(640, 480);
 	fill(255, 0, 0);
 	ellipse(40, 40, 80, 80);

@@ -2,6 +2,7 @@ package io.github.processthis.client.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
     NavigationUI.setupWithNavController(navigation, navController);
-
+    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
   }
 
   private boolean loadFragment(Fragment fragment) {
@@ -73,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(fragment);
             break;
           case R.id.navigation_add:
-            mTextMessage.setText(R.string.add);
+            //mTextMessage.setText(R.string.add);
+            fragment = new SketchViewFragment();
+            loadFragment(fragment);
             break;
           case R.id.navigation_notifications:
             mTextMessage.setText(R.string.notifications);
