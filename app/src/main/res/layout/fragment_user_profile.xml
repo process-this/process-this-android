@@ -11,10 +11,9 @@
     android:id="@+id/user_profile_placeholder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="This is the user profile fragment"
+    android:text="@string/profile_placeholder_string"
     android:textAlignment="center"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     />

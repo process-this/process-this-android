@@ -11,20 +11,15 @@
     android:label="HomeFragment"/>
 
   <fragment
-    android:id="@+id/navigation_featured"
-    android:label="FeaturedFragment"
-    android:name="io.github.processthis.client.view.FeaturedFragment"/>
-
-  <fragment
     android:id="@+id/navigation_userprofile"
-    android:label="UserProfileFragment"
+    android:label="userProfileFragment"
     android:name="io.github.processthis.client.view.UserProfileFragment"
-    tools:layout="@layout/fragment_user_profile"/>
+    />
 
   <fragment
-    android:id="@+id/sketchViewFragment"
-    android:name="io.github.processthis.client.controller.SketchViewFragment"
-    android:label="ide_fragment"
-    tools:layout="@layout/ide_fragment"/>
+    android:id="@+id/navigation_featured"
+    android:label="featuredFragment"
+    android:name="io.github.processthis.client.view.FeaturedFragment"
+    tools:layout="@layout/fragment_featured"/>
 
 </navigation>

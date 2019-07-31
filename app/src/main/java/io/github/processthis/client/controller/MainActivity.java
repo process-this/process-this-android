@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     NavigationUI.setupWithNavController(navigation, navController);
 
-    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
     FloatingActionButton fab = findViewById(R.id.fab);
 
     fab.setOnClickListener(new OnClickListener() {
@@ -69,42 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
     return false;
   }
-
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-      = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-        Fragment fragment = null;
-
-        switch (menuItem.getItemId()) {
-
-          case R.id.navigation_home:
-            fragment = new HomeFragment();
-            loadFragment(fragment);
-            break;
-
-          case R.id.navigation_featured:
-            fragment = new FeaturedFragment();
-            loadFragment(fragment);
-            break;
-          case R.id.navigation_notifications:
-            mTextMessage.setText(R.string.notifications);
-            break;
-          case R.id.navigation_userprofile:
-            fragment = new UserProfileFragment();
-            loadFragment(fragment);
-            break;
-        }
-
-        return false;
-
-    }
-  };
-
-
-
 
   /**
    * Creates and inflates the options menu.
