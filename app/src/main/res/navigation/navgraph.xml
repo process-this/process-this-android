@@ -4,22 +4,27 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/navgraph"
 
-  app:startDestination="@id/homeFragment">
+  app:startDestination="@id/navigation_home">
   <fragment
-    android:id="@+id/homeFragment"
+    android:id="@+id/navigation_home"
     android:name="io.github.processthis.client.view.HomeFragment"
     android:label="HomeFragment"/>
+
   <fragment
-    android:id="@+id/featuredFragment"
-    android:name="io.github.processthis.client.view.FeaturedFragment"
-    android:label="FeaturedFragment"/>
+    android:id="@+id/navigation_featured"
+    android:label="FeaturedFragment"
+    android:name="io.github.processthis.client.view.FeaturedFragment"/>
+
   <fragment
-    android:id="@+id/userProfileFragment"
+    android:id="@+id/navigation_userprofile"
+    android:label="UserProfileFragment"
     android:name="io.github.processthis.client.view.UserProfileFragment"
-    android:label="UserProfileFragment"/>
+    tools:layout="@layout/fragment_user_profile"/>
+
   <fragment
     android:id="@+id/sketchViewFragment"
     android:name="io.github.processthis.client.controller.SketchViewFragment"
     android:label="ide_fragment"
     tools:layout="@layout/ide_fragment"/>
+
 </navigation>
