@@ -84,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
             fragment = new FeaturedFragment();
             loadFragment(fragment);
             break;
-          case R.id.navigation_add:
-            mTextMessage.setText(R.string.add);
-            break;
           case R.id.navigation_notifications:
             mTextMessage.setText(R.string.notifications);
             break;
