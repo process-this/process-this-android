@@ -3,7 +3,10 @@ package io.github.processthis.client.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -12,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import io.github.processthis.client.R;
 import io.github.processthis.client.service.GoogleSignInService;
 import io.github.processthis.client.view.FeaturedFragment;
@@ -37,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
     NavigationUI.setupWithNavController(navigation, navController);
+    FloatingActionButton fab = findViewById(R.id.fab);
+
+    fab.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Toast.makeText(MainActivity.this,"This should open the code editor fragment",Toast.LENGTH_LONG).show();
+      }
+    });
 
   }
 
