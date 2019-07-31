@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == REQUEST_CODE) {
+    switchToMain();// TODO Comment this out and add the other stuff back in
+    /*if (requestCode == REQUEST_CODE) {
       try {
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
       } catch (ApiException e) {
         Toast.makeText(this, R.string.login_failed, Toast.LENGTH_LONG).show();
       }
-    }
+    }*/
   }
 
   private void signIn() {

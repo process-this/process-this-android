@@ -2,6 +2,7 @@ package io.github.processthis.client.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
     NavigationUI.setupWithNavController(navigation, navController);
+
+    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     FloatingActionButton fab = findViewById(R.id.fab);
 
     fab.setOnClickListener(new OnClickListener() {
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this,"This should open the code editor fragment",Toast.LENGTH_LONG).show();
       }
     });
+
 
   }
 
