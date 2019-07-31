@@ -11,7 +11,7 @@
     android:id="@+id/user_profile_placeholder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="This is the featured fragment"
+    android:text="@string/featured_placeholder_fragment"
     android:textAlignment="center"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
