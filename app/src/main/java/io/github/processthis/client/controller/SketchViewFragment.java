@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,18 +27,46 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SketchViewFragment extends Fragment {
+
   private WebView preview;
   private EditText codeEditor;
   private boolean isEditing;
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View frag = inflater.inflate(R.layout.ide_fragment, container, false);
+
+    String src = "alert('Hello!');\n"
+        + "function setup(){\n"
+        + "\talert('setup()');\n"
+        + "\tprint('setup');\n"
+        + "\tcreateCanvas(640, 480);\n"
+        + "\tfill(255, 0, 0);\n"
+        + "\tellipse(40, 40, 80, 80);\n"
+        + "}\n"
+        + "\n"
+        + "function draw(){\n"
+        + "alert('Draw');\n"
+        + "\tprint('draw');\n"
+        + "\tif (mouseIsPressed){\n"
+        + "\t\tprint(mouseX);\n"
+        + "\t\tfill(0);\n"
+        + "\t}\n"
+        + "\telse{\n"
+        + "\t\tfill(255);\n"
+        + "\t}\n"
+        + "\tellipse(mouseX, mouseY, 80, 80);\n"
+        + "}";
 
     codeEditor = frag.findViewById(R.id.editor);
     preview = frag.findViewById(R.id.sketch_view);
@@ -74,8 +103,15 @@ public class SketchViewFragment extends Fragment {
     settings.setSupportZoom(true);
     settings.setDefaultTextEncodingName("utf-8");
 
-    SpannableString highlighted = highlightText("Hi there, my good sir! Highly Hi today!");
-    codeEditor.setText(highlighted, BufferType.SPANNABLE);
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter("file:///android_asset/sketch.js"));
+      writer.write(src);
+      writer.close();
+    } catch (IOException e){
+      //Do nothing
+    }
+
+    //preview.loadUrl("file:///android_asset/sketch_web_view.html");
 
     codeEditor.addTextChangedListener(new DelayedTextWatcher(codeEditor) {
 
@@ -101,7 +137,7 @@ public class SketchViewFragment extends Fragment {
     super.onResume();
   }
 
-  private SpannableString highlightText(String text){
+  private SpannableString highlightText(String text) {
     SpannableString result = new SpannableString(text);
 
     String match = "Hi";
@@ -109,7 +145,7 @@ public class SketchViewFragment extends Fragment {
 
     int matchLength = match.length();
 
-    while (index >= 0){
+    while (index >= 0) {
 
       if (index != -1) {
         result.setSpan(new ForegroundColorSpan(Color.YELLOW), index, index + matchLength,
@@ -122,10 +158,11 @@ public class SketchViewFragment extends Fragment {
   }
 
   private abstract class DelayedTextWatcher implements TextWatcher {
+
     private final EditText watching;
     protected int cursorPosition;
 
-    public DelayedTextWatcher(EditText tView){
+    public DelayedTextWatcher(EditText tView) {
       watching = tView;
     }
 
@@ -136,6 +173,7 @@ public class SketchViewFragment extends Fragment {
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
       cursorPosition = watching.getSelectionStart();
     }
+
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
       //DO NOTHING!
@@ -143,7 +181,7 @@ public class SketchViewFragment extends Fragment {
 
 
     @Override
-    public void afterTextChanged(final Editable s){
+    public void afterTextChanged(final Editable s) {
       timer.cancel();
       timer = new Timer();
 

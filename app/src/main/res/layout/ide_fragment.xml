@@ -11,7 +11,7 @@
     android:id="@+id/editor"
     android:background="@color/colorPrimaryDark"
     android:gravity="top"
-    android:textColor="@color/colorAccent"/>
+    android:textColor="#FFFFFFFF"/>
 
   <WebView
     android:orientation="vertical"
