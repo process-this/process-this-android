@@ -17,10 +17,7 @@
     android:icon="@drawable/lib_circle"
     android:title="@string/userprofile"/>
 
-  <item
-    android:id="@id/navigation_sketch_view"
-    android:icon="@drawable/ic_like"
-    android:title="@string/open_sketch_view"
-    />
+
+
 
 </menu>

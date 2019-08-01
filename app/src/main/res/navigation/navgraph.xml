@@ -28,4 +28,6 @@
     android:name="io.github.processthis.client.controller.SketchViewFragment"
     tools:layout="@layout/ide_fragment"/>
 
+
+
 </navigation>
