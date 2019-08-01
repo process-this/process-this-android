@@ -16,7 +16,7 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel
     implements Observable, LifecycleObserver {
 
-  private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
+
   private String searchTerm;
   private MutableLiveData<UserProfile> userProfile;
   private MutableLiveData<List<UserProfile>> userProfileSearchResults;
