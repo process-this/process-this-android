@@ -45,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab = findViewById(R.id.fab);
 
+    Navigation.setViewNavController(fab, navController);
+
     fab.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
-        Toast.makeText(MainActivity.this,"This should open the code editor fragment",Toast.LENGTH_LONG).show();
+        navController.navigate(R.id.navigation_sketch_view);
       }
     });
 
