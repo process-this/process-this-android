@@ -74,14 +74,6 @@ public class SketchViewFragment extends Fragment {
     settings.setSupportZoom(true);
     settings.setDefaultTextEncodingName("utf-8");
 
-    /*SpannableString spannable = new SpannableString("Hello SpannableString Example.");
-
-    spannable.setSpan(new ForegroundColorSpan(Color.GREEN), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-    spannable.setSpan(new ForegroundColorSpan(Color.GREEN), 10, 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-    codeEditor.setText(spannable, BufferType.SPANNABLE);*/
-
     SpannableString highlighted = highlightText("Hi there, my good sir! Highly Hi today!");
     codeEditor.setText(highlighted, BufferType.SPANNABLE);
 
@@ -101,29 +93,6 @@ public class SketchViewFragment extends Fragment {
       }
     });
 
-    /*codeEditor.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
-
-      @Override
-      public void afterTextChanged(Editable editable) {
-        if (!isEditing) {
-          isEditing = true;
-          SpannableString highlightedText = highlightText(codeEditor.getText().toString());
-          codeEditor.setText(highlightedText, BufferType.SPANNABLE);
-        } else {
-          isEditing = false;
-        }
-      }
-    });*/
-
     return frag;
   }
 
@@ -137,14 +106,16 @@ public class SketchViewFragment extends Fragment {
 
     String match = "Hi";
     int index = text.indexOf(match);
+
     int matchLength = match.length();
 
     while (index >= 0){
-      index = text.indexOf(match, index + matchLength);
+
       if (index != -1) {
         result.setSpan(new ForegroundColorSpan(Color.YELLOW), index, index + matchLength,
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       }
+      index = text.indexOf(match, index + matchLength);
     }
 
     return result;
@@ -173,8 +144,6 @@ public class SketchViewFragment extends Fragment {
 
     @Override
     public void afterTextChanged(final Editable s){
-      //textChanged();
-      //watching.setSelection(cursorPosition);
       timer.cancel();
       timer = new Timer();
 
