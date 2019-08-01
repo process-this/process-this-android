@@ -9,5 +9,6 @@
   <string name="add">Add</string>
   <string name="profile_placeholder_string">This is the user profile fragment</string>
   <string name="featured_placeholder_fragment">This is the featured fragment</string>
+  <string name="open_sketch_view">Sketch View</string>
 
 </resources>

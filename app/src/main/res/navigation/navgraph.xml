@@ -22,4 +22,10 @@
     android:name="io.github.processthis.client.view.FeaturedFragment"
     tools:layout="@layout/fragment_featured"/>
 
+  <fragment
+    android:id="@+id/navigation_sketch_view"
+    android:label="sketchView"
+    android:name="io.github.processthis.client.controller.SketchViewFragment"
+    tools:layout="@layout/ide_fragment"/>
+
 </navigation>
