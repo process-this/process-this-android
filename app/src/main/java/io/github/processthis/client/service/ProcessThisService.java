@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ProcessThisService {
@@ -24,25 +25,28 @@ public interface ProcessThisService {
 
 
   @GET("users/{userId}/sketches/{sketchId}")
-  Single<Sketch> getSingleSketch(@Header("Authorization") String oauthHeader);
+  Single<Sketch> getSingleSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
 
   @GET("users/{userId}/sketches/")
-  Observable<List<Sketch>> getUserProfileSketches(@Header("Authorization") String oauthHeader);
+  Observable<List<Sketch>> getUserProfileSketches(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
 
   @GET("users/{userId}")
-  Single<UserProfile> getSingleUserProfile(@Header("Authorization") String oauthHeader);
+  Single<UserProfile> getSingleUserProfile(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
+
+  @GET("users/{userId}/likes")
+  Observable<List<Like>> getUserProfilesLikes(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
 
   @GET("users/{userId}/sketches/{sketchId}/likes")
-  Observable<List<UserProfile>> getUserProfilesLikes(@Header("Authorization") String oauthHeader);
+  Observable<List<Like>>  getSketchLikes(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
 
   @POST
-  UserProfile createUserProfile(@Header("Authorization") String oauthHeader);
+  Single<UserProfile> postUserProfile(@Header("Authorization") String oauthHeader);
 
   @POST
-  Sketch createSketch(@Header("Authorization") String oauthHeader);
+  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader);
 
   @PUT
-  UserProfile createLike(@Header("Authorization") String oauthHeader);
+  Single<UserProfile> putLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
 
 
 
