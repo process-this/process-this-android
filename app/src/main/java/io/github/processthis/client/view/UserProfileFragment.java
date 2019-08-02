@@ -22,6 +22,8 @@ public class UserProfileFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
+
+
     return view;
   }
 }

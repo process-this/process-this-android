@@ -11,5 +11,6 @@
   <string name="featured_placeholder_fragment">This is the featured fragment</string>
   <string name="open_sketch_view">Sketch View</string>
   <string name="search">Search</string>
+  <string name="profile_image_content">profile image</string>
 
 </resources>
