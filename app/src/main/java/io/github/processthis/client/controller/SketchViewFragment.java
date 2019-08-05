@@ -25,12 +25,17 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
+import io.github.processthis.client.parsing.Token;
+import io.github.processthis.client.parsing.Token.TokenType;
+import io.github.processthis.client.parsing.Tokenizer;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,28 +53,30 @@ public class SketchViewFragment extends Fragment {
 
     String src = "alert('Hello!');\n"
         + "function setup(){\n"
-        + "\talert('setup()');\n"
-        + "\tprint('setup');\n"
-        + "\tcreateCanvas(640, 480);\n"
-        + "\tfill(255, 0, 0);\n"
-        + "\tellipse(40, 40, 80, 80);\n"
+        + "alert('setup()');\n"
+        + "print('setup');\n"
+        + "createCanvas(640, 480);\n"
+        + "fill(255, 0, 0);\n"
+        + "ellipse(40, 40, 80, 80);\n"
         + "}\n"
         + "\n"
         + "function draw(){\n"
         + "alert('Draw');\n"
-        + "\tprint('draw');\n"
-        + "\tif (mouseIsPressed){\n"
-        + "\t\tprint(mouseX);\n"
-        + "\t\tfill(0);\n"
-        + "\t}\n"
-        + "\telse{\n"
-        + "\t\tfill(255);\n"
-        + "\t}\n"
-        + "\tellipse(mouseX, mouseY, 80, 80);\n"
-        + "}";
+        + "print('draw');\n"
+        + "if (mouseIsPressed){\n"
+        + "print(mouseX);\n"
+        + "fill(0);\n"
+        + "}\n"
+        + "else{\n"
+        + "fill(255);\n"
+        + "}\n"
+        + "ellipse(mouseX, mouseY, 80, 80);\n"
+        + "}\n"
+        + "\n";
 
     codeEditor = frag.findViewById(R.id.editor);
-    preview = frag.findViewById(R.id.sketch_view);
+    codeEditor.setText(highlightText(formatString(src)));
+    /*preview = frag.findViewById(R.id.sketch_view);
     preview.setWebChromeClient(new WebChromeClient() {
       @Override
       public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -101,7 +108,7 @@ public class SketchViewFragment extends Fragment {
     settings.setBuiltInZoomControls(true);
     settings.setDisplayZoomControls(false);
     settings.setSupportZoom(true);
-    settings.setDefaultTextEncodingName("utf-8");
+    settings.setDefaultTextEncodingName("utf-8");*/
 
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter("file:///android_asset/sketch.js"));
@@ -119,8 +126,8 @@ public class SketchViewFragment extends Fragment {
       public void textChanged() {
         if (!isEditing) {
           isEditing = true;
-
-          SpannableString highlightedText = highlightText(codeEditor.getText().toString());
+          String autoIndented = formatString(codeEditor.getText().toString());
+          SpannableString highlightedText = highlightText(autoIndented);
           codeEditor.setText(highlightedText, BufferType.SPANNABLE);
           codeEditor.setSelection(cursorPosition);
         } else {
@@ -137,21 +144,69 @@ public class SketchViewFragment extends Fragment {
     super.onResume();
   }
 
+  private String formatString(String text){
+    int tabLevel = 0;
+    String[] lines = text.split("\n\t*", -1);
+    String result = "";
+
+    if (lines.length != 0) {
+      for (int i = 0; i < lines.length; i++) {
+
+        if (lines[i].startsWith("}")){
+          tabLevel--;
+        }
+
+        String tabs = "";
+
+        for (int t = 0; t < tabLevel * 2; t++) {
+          tabs += "\t";
+        }
+
+        result += tabs + lines[i] + "\n";
+
+        for (int j = 0; j < lines[i].length(); j++) {
+          if (lines[i].charAt(j) == '{') {
+            tabLevel++;
+          } else if (lines[i].charAt(j) == '}') {
+            if (!lines[i].startsWith("}"))
+            tabLevel--;
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
   private SpannableString highlightText(String text) {
     SpannableString result = new SpannableString(text);
 
-    String match = "Hi";
-    int index = text.indexOf(match);
+    LinkedList<Token> tokens = new Tokenizer(text).Tokenize();
 
-    int matchLength = match.length();
-
-    while (index >= 0) {
-
-      if (index != -1) {
-        result.setSpan(new ForegroundColorSpan(Color.YELLOW), index, index + matchLength,
+    for (Token token : tokens){
+      if (token.getEnd() >= text.length()){
+        break;
+      }
+      if (token.getType() == TokenType.NUMBER){
+        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+            R.color.numberHighlightColor)), token.getStart(), token.getEnd(),
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       }
-      index = text.indexOf(match, index + matchLength);
+      else if (token.getType() == TokenType.COMMENT){
+        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+            R.color.commentHighlightColor)), token.getStart(), token.getEnd(),
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+      else if (token.getType() == TokenType.STRING){
+        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+            R.color.stringHighlightColor)), token.getStart(), token.getEnd(),
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
+      else if (token.getType() == TokenType.KEYWORD){
+        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+            R.color.keywordHighlightColor)), token.getStart(), token.getEnd(),
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      }
     }
 
     return result;
@@ -182,6 +237,9 @@ public class SketchViewFragment extends Fragment {
 
     @Override
     public void afterTextChanged(final Editable s) {
+      //isEditing = true;
+      //watching.setText(formatString(watching.getText().toString(), '{', '}'));
+      //isEditing = false;
       timer.cancel();
       timer = new Timer();
 
@@ -189,7 +247,7 @@ public class SketchViewFragment extends Fragment {
           new TimerTask() {
             @Override
             public void run() {
-              textChanged();
+              getActivity().runOnUiThread(() -> textChanged());
             }
           },
           DELAY
