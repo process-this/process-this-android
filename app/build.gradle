@@ -11,6 +11,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField "String", "BASE_URL", '"http://10.0.2.2:18181/rest/"'
+
         buildConfigField "String", "CLIENT_ID", '"1047387193904-kar35il41atr51pdi8t0u1q6lcu6b4ml.apps.googleusercontent.com"'
         buildConfigField "String", "AUTHORIZATION_FORMAT", '"Bearer %s"'
         javaCompileOptions {
@@ -44,7 +46,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     def nav_version = "2.0.0"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
