@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     }*/
   }
 
+
   private void signIn() {
     Intent intent = GoogleSignInService.getInstance().getClient().getSignInIntent();
     startActivityForResult(intent, REQUEST_CODE);
