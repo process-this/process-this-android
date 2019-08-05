@@ -1,20 +1,15 @@
 package io.github.processthis.client.controller;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
@@ -23,7 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.TextView.BufferType;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -31,10 +26,10 @@ import io.github.processthis.client.R;
 import io.github.processthis.client.parsing.Token;
 import io.github.processthis.client.parsing.Token.TokenType;
 import io.github.processthis.client.parsing.Tokenizer;
+import io.github.processthis.client.view.LineNumberedEditText;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,7 +37,8 @@ import java.util.TimerTask;
 public class SketchViewFragment extends Fragment {
 
   private WebView preview;
-  private EditText codeEditor;
+  private LineNumberedEditText codeEditor;
+  private ImageButton actionButton;
   private boolean isEditing;
 
   @Override
@@ -50,33 +46,34 @@ public class SketchViewFragment extends Fragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View frag = inflater.inflate(R.layout.ide_fragment, container, false);
-
+    // TODO Set up debug console.
     String src = "alert('Hello!');\n"
         + "function setup(){\n"
         + "alert('setup()');\n"
-        + "print('setup');\n"
         + "createCanvas(640, 480);\n"
         + "fill(255, 0, 0);\n"
         + "ellipse(40, 40, 80, 80);\n"
         + "}\n"
         + "\n"
         + "function draw(){\n"
-        + "alert('Draw');\n"
         + "print('draw');\n"
         + "if (mouseIsPressed){\n"
-        + "print(mouseX);\n"
         + "fill(0);\n"
         + "}\n"
         + "else{\n"
         + "fill(255);\n"
         + "}\n"
         + "ellipse(mouseX, mouseY, 80, 80);\n"
-        + "}\n"
-        + "\n";
+        + "}";
 
     codeEditor = frag.findViewById(R.id.editor);
+    actionButton = frag.findViewById(R.id.actionButton);
+
+    actionButton.setOnClickListener(new ActionButtonListener());
+
     codeEditor.setText(highlightText(formatString(src)));
-    /*preview = frag.findViewById(R.id.sketch_view);
+    preview = frag.findViewById(R.id.sketchPreview);
+
     preview.setWebChromeClient(new WebChromeClient() {
       @Override
       public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
@@ -108,17 +105,7 @@ public class SketchViewFragment extends Fragment {
     settings.setBuiltInZoomControls(true);
     settings.setDisplayZoomControls(false);
     settings.setSupportZoom(true);
-    settings.setDefaultTextEncodingName("utf-8");*/
-
-    try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter("file:///android_asset/sketch.js"));
-      writer.write(src);
-      writer.close();
-    } catch (IOException e){
-      //Do nothing
-    }
-
-    //preview.loadUrl("file:///android_asset/sketch_web_view.html");
+    settings.setDefaultTextEncodingName("utf-8");
 
     codeEditor.addTextChangedListener(new DelayedTextWatcher(codeEditor) {
 
@@ -137,6 +124,31 @@ public class SketchViewFragment extends Fragment {
     });
 
     return frag;
+  }
+
+  public String getEncodedSource(){
+    return null;
+  }
+
+  public void setSource(String encodedSource){
+
+  }
+
+  private void runSketch(){
+    String htmlFormatter = "<!DOCTYPE html>\n"
+        + "<html lang=\"en\">\n"
+        + "<head>\n"
+        + "  <meta charset=\"UTF-8\">\n"
+        + "  <script src=\"file:///android_asset/p5.js\"></script>\n"
+        + "  <title>Title</title>\n"
+        + "</head>\n"
+        + "  <body>\n"
+        + "  <script> %s </script>\n"
+        + "  </body>\n"
+        + "</html>";
+    String source = String.format(htmlFormatter, codeEditor.getText().toString());
+
+    preview.loadDataWithBaseURL("file:///android_asset/p5.js", source, "text/html", "UTF-8", null);
   }
 
   @Override
@@ -210,6 +222,28 @@ public class SketchViewFragment extends Fragment {
     }
 
     return result;
+  }
+
+  private class ActionButtonListener implements OnClickListener{
+    private boolean editorOpen = true;
+
+    @Override
+    public void onClick(View view) {
+      editorOpen = !editorOpen;
+
+      if (editorOpen){
+        preview.setVisibility(View.GONE);
+        codeEditor.setVisibility(View.VISIBLE);
+        actionButton.setImageDrawable(ContextCompat.getDrawable(getContext(),
+            R.drawable.start_script_icon));
+      } else {
+        preview.setVisibility(View.VISIBLE);
+        codeEditor.setVisibility(View.GONE);
+        actionButton.setImageDrawable(ContextCompat.getDrawable(getContext(),
+            R.drawable.stop_script_icon));
+        runSketch();
+      }
+    }
   }
 
   private abstract class DelayedTextWatcher implements TextWatcher {
