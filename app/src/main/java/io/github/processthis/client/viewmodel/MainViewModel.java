@@ -33,6 +33,7 @@ public class MainViewModel extends AndroidViewModel
   private String oauthHeader;
   private String userId;
   private String sketchId;
+  private String likeId;
 
   public MainViewModel(@NonNull Application application) {
     super(application);
@@ -109,6 +110,24 @@ public class MainViewModel extends AndroidViewModel
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe((userProfile) -> userProfileResult.setValue(userProfile))
+    );
+  }
+
+  public void unlike(){
+    pending.add(
+        ProcessThisService.getInstance().deleteUserLike(oauthHeader, userId, likeId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(() -> {}, (ex) -> {})
+    );
+  }
+
+  public void deleteSketch(){
+    pending.add(
+        ProcessThisService.getInstance().deleteSketch(oauthHeader, userId, sketchId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(() -> {}, (ex) -> {})
     );
   }
 
