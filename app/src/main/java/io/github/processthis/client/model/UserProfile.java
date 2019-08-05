@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-//this is a pojo
+/**
+ * Pojo class for setting and retrieving Userprofile information from the ProcessThis RESTful web API
+ */
 public class UserProfile {
 
   private UUID id;
@@ -98,6 +100,5 @@ public class UserProfile {
   public void setHref(URI href) {
     this.href = href;
   }
-
 
 }
