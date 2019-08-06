@@ -118,13 +118,13 @@ public class SketchViewFragment extends Fragment {
     String htmlFormatter = "<!DOCTYPE html>\n"
         + "<html lang=\"en\">\n"
         + "<head>\n"
-        + "  <meta charset=\"UTF-8\">\n"
-        + "  <script src=\"file:///android_asset/p5.js\"></script>\n"
-        + "  <title>Title</title>\n"
+        + "<meta charset=\"UTF-8\">\n"
+        + "<script src=\"file:///android_asset/p5.js\"></script>\n"
+        + "<title>Title</title>\n"
         + "</head>\n"
-        + "  <body>\n"
-        + "  <script> %s </script>\n"
-        + "  </body>\n"
+        + "<body>\n"
+        + "<script> %s </script>\n"
+        + "</body>\n"
         + "</html>";
     String source = String.format(htmlFormatter, codeEditor.getText().toString());
 
@@ -154,14 +154,15 @@ public class SketchViewFragment extends Fragment {
           tabs += "\t";
         }
 
-        result += tabs + lines[i] + "\n";
+        result += tabs + lines[i] + ((lines[i].isEmpty() && i == lines.length - 1) ? "" : "\n");
 
         for (int j = 0; j < lines[i].length(); j++) {
           if (lines[i].charAt(j) == '{') {
             tabLevel++;
           } else if (lines[i].charAt(j) == '}') {
-            if (!lines[i].startsWith("}"))
-            tabLevel--;
+            if (!lines[i].startsWith("}")) {
+              tabLevel--;
+            }
           }
         }
       }
