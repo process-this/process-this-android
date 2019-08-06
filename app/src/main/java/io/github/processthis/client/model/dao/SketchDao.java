@@ -11,15 +11,15 @@ import java.util.List;
 public interface SketchDao {
 
 
-    @Insert
-    void insert(Sketch sketch);
+  @Insert
+  void insert(Sketch sketch);
 
-    @Query("SELECT * FROM sketch")
-    LiveData<List<Sketch>> getAll();
+  @Query("SELECT * FROM sketch")
+  LiveData<List<Sketch>> getAll();
 
-    @Query("SELECT * FROM sketch WHERE sketch_id = :sketchId")
-    LiveData<Sketch> findById (Long sketchId);
+  @Query("SELECT * FROM sketch WHERE sketch_id = :sketchId")
+  LiveData<Sketch> findById(Long sketchId);
 
-  }
+}
 
 

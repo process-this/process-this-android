@@ -8,7 +8,6 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
-import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -25,21 +24,25 @@ import retrofit2.http.Query;
 public interface ProcessThisService {
 
 
-
   @GET("users/{userId}/sketches/{sketchId}")
-  Single<Sketch> getSingleSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
+  Single<Sketch> getSingleSketch(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId, @Path("sketchId") String sketchId);
 
   @GET("users/{userId}/sketches/")
-  Observable<List<Sketch>> getUserProfileSketches(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
+  Observable<List<Sketch>> getUserProfileSketches(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId);
 
   @GET("users/{userId}")
-  Single<UserProfile> getSingleUserProfile(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
+  Single<UserProfile> getSingleUserProfile(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId);
 
   @GET("users/{userId}/likes")
-  Observable<List<Like>> getUserProfilesLikes(@Header("Authorization") String oauthHeader, @Path("userId") String userId);
+  Observable<List<Like>> getUserProfilesLikes(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId);
 
   @GET("users/{userId}/sketches/{sketchId}/likes")
-  Observable<List<Like>>  getSketchLikes(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
+  Observable<List<Like>> getSketchLikes(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId, @Path("sketchId") String sketchId);
 
   @POST
   Single<UserProfile> postUserProfile(@Header("Authorization") String oauthHeader);
@@ -48,7 +51,8 @@ public interface ProcessThisService {
   Single<Sketch> postSketch(@Header("Authorization") String oauthHeader);
 
   @PUT
-  Single<UserProfile> putLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
+  Single<UserProfile> putLike(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId, @Path("sketchId") String sketchId);
 
 
   @GET("search/feed")
@@ -56,15 +60,17 @@ public interface ProcessThisService {
 
   @GET("search")
   Observable<List<Sketch>> searchSketches(@Query("q") String searchTerm);
-  
+
   @DELETE("users/{userId}/likes/{likeId}")
-  Completable deleteUserLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("likeId") String likeId);
+  Completable deleteUserLike(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId, @Path("likeId") String likeId);
 
   @DELETE("users/{userId}/sketches/{sketchId}")
-  Completable deleteSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String likeId);
+  Completable deleteSketch(@Header("Authorization") String oauthHeader,
+      @Path("userId") String userId, @Path("sketchId") String likeId);
 
-
-
+  @GET("search/home")
+  Observable<List<Sketch>> getRecentSketches();
 
 
   static ProcessThisService getInstance() {
@@ -78,7 +84,7 @@ public interface ProcessThisService {
     static {
       // Following five lines should be removed/commented out for production release.
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
- //     interceptor.setLevel(Level.BODY);
+      //     interceptor.setLevel(Level.BODY);
       OkHttpClient client = new OkHttpClient.Builder()
           .addInterceptor(interceptor)
           .build();

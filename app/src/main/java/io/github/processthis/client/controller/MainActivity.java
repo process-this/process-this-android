@@ -2,42 +2,34 @@ package io.github.processthis.client.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.MenuItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import io.github.processthis.client.R;
 import io.github.processthis.client.service.GoogleSignInService;
-import io.github.processthis.client.view.FeaturedFragment;
-import io.github.processthis.client.view.HomeFragment;
 import io.github.processthis.client.view.LoginActivity;
-import io.github.processthis.client.view.UserProfileFragment;
 
 
 public class MainActivity extends AppCompatActivity {
 
 //  private SketchViewFragment sketchView;
 
+  private static int SPLASH_SCREEN_TIME_OUT = 2000;
 
-  private TextView mTextMessage;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    mTextMessage = (TextView) findViewById(R.id.message);
     BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -72,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * Creates and inflates the options menu.
+   *
    * @param menu the menu
    * @return true
    */
@@ -84,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * Currently contains the only option in the options menu, to sign out.
+   *
    * @param item item selected from the {@link Menu}
    * @return {@link Boolean} if the {@link android.content.ClipData.Item} was selected
    */

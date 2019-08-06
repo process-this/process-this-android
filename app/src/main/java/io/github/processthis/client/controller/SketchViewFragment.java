@@ -1,29 +1,16 @@
 package io.github.processthis.client.controller;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ConsoleMessage;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -34,7 +21,6 @@ import io.github.processthis.client.parsing.Tokenizer;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -114,7 +100,7 @@ public class SketchViewFragment extends Fragment {
       BufferedWriter writer = new BufferedWriter(new FileWriter("file:///android_asset/sketch.js"));
       writer.write(src);
       writer.close();
-    } catch (IOException e){
+    } catch (IOException e) {
       //Do nothing
     }
 
@@ -144,7 +130,7 @@ public class SketchViewFragment extends Fragment {
     super.onResume();
   }
 
-  private String formatString(String text){
+  private String formatString(String text) {
     int tabLevel = 0;
     String[] lines = text.split("\n\t*", -1);
     String result = "";
@@ -152,7 +138,7 @@ public class SketchViewFragment extends Fragment {
     if (lines.length != 0) {
       for (int i = 0; i < lines.length; i++) {
 
-        if (lines[i].startsWith("}")){
+        if (lines[i].startsWith("}")) {
           tabLevel--;
         }
 
@@ -168,8 +154,9 @@ public class SketchViewFragment extends Fragment {
           if (lines[i].charAt(j) == '{') {
             tabLevel++;
           } else if (lines[i].charAt(j) == '}') {
-            if (!lines[i].startsWith("}"))
-            tabLevel--;
+            if (!lines[i].startsWith("}")) {
+              tabLevel--;
+            }
           }
         }
       }
@@ -183,26 +170,23 @@ public class SketchViewFragment extends Fragment {
 
     LinkedList<Token> tokens = new Tokenizer(text).Tokenize();
 
-    for (Token token : tokens){
-      if (token.getEnd() >= text.length()){
+    for (Token token : tokens) {
+      if (token.getEnd() >= text.length()) {
         break;
       }
-      if (token.getType() == TokenType.NUMBER){
+      if (token.getType() == TokenType.NUMBER) {
         result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
             R.color.numberHighlightColor)), token.getStart(), token.getEnd(),
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.COMMENT){
+      } else if (token.getType() == TokenType.COMMENT) {
         result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
             R.color.commentHighlightColor)), token.getStart(), token.getEnd(),
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.STRING){
+      } else if (token.getType() == TokenType.STRING) {
         result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
             R.color.stringHighlightColor)), token.getStart(), token.getEnd(),
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.KEYWORD){
+      } else if (token.getType() == TokenType.KEYWORD) {
         result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
             R.color.keywordHighlightColor)), token.getStart(), token.getEnd(),
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

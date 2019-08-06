@@ -1,6 +1,7 @@
 package io.github.processthis.client.parsing;
 
 public class Token {
+
   private final int start;
   private final int end;
   private final TokenType type;
@@ -23,7 +24,7 @@ public class Token {
     this.type = type;
   }
 
-  public enum TokenType{
+  public enum TokenType {
     NUMBER,
     KEYWORD,
     COMMENT,

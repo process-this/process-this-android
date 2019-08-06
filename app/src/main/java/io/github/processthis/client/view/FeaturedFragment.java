@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import io.github.processthis.client.R;
 import io.github.processthis.client.adapter.RecyclerViewAdapter;
-import io.github.processthis.client.viewmodel.FeaturedViewModel;
+import io.github.processthis.client.viewmodel.SketchViewModel;
 
 public class FeaturedFragment extends Fragment {
 
   private RecyclerView recyclerView;
-  private FeaturedViewModel viewModel;
+  private SketchViewModel viewModel;
 
   public FeaturedFragment() {
 
@@ -28,13 +28,15 @@ public class FeaturedFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_featured, container, false);
     recyclerView = view.findViewById(R.id.recycler_view);
+    recyclerView.setLayoutManager(new GridAutoFitLayoutManager(getContext(),
+        (int) getContext().getResources().getDimension(R.dimen.featured_cell_size)));
     return view;
   }
 
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    viewModel = ViewModelProviders.of(getActivity()).get(FeaturedViewModel.class);
+    viewModel = ViewModelProviders.of(getActivity()).get(SketchViewModel.class);
     getActivity().getLifecycle().addObserver(viewModel);
     viewModel.getFeaturedFeed(10).observe(this, (sketches) -> {
       RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), sketches);
