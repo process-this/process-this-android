@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c621b3a9d2c4fc798c3a970ca8d17e22",
+    "identityHash": "a686529ee3999bda6186f7a6d6957ff0",
     "entities": [
       {
         "tableName": "Sketch",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sketch_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sketch_title` TEXT NOT NULL, `sketch_description` TEXT, `files` INTEGER NOT NULL, `is_shared` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sketch_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sketch_title` TEXT NOT NULL, `sketch_description` TEXT, `files` INTEGER NOT NULL, `is_shared` INTEGER NOT NULL, `code` TEXT)",
         "fields": [
           {
             "fieldPath": "sketchId",
@@ -37,6 +37,12 @@
             "columnName": "is_shared",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -114,7 +120,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c621b3a9d2c4fc798c3a970ca8d17e22')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a686529ee3999bda6186f7a6d6957ff0')"
     ]
   }
 }

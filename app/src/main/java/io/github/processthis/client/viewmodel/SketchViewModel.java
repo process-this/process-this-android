@@ -14,15 +14,16 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
-public class FeaturedViewModel extends AndroidViewModel implements LifecycleObserver {
+public class SketchViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private ProcessThisService service;
   private MutableLiveData<List<Sketch>> searchResults = new MutableLiveData<>();
   private MutableLiveData<List<Sketch>> featuredFeed = new MutableLiveData<>();
+  private MutableLiveData<List<Sketch>> recentSketches = new MutableLiveData<>();
   private CompositeDisposable pending = new CompositeDisposable();
 
 
-  public FeaturedViewModel(@NonNull Application application) {
+  public SketchViewModel(@NonNull Application application) {
     super(application);
     service = ProcessThisService.getInstance();
   }
@@ -41,6 +42,14 @@ public class FeaturedViewModel extends AndroidViewModel implements LifecycleObse
             .subscribeOn(Schedulers.io())
             .subscribe((sketches) -> searchResults.postValue(sketches)));
     return searchResults;
+  }
+
+  public LiveData<List<Sketch>> getRecentSketches() {
+    pending.add(
+        service.getRecentSketches()
+            .subscribeOn(Schedulers.io())
+            .subscribe((sketches) -> recentSketches.postValue(sketches)));
+    return recentSketches;
   }
 
   @OnLifecycleEvent(Event.ON_STOP)

@@ -52,15 +52,18 @@ public interface ProcessThisService {
 
   @GET("search/feed")
   Observable<List<Sketch>> getFeatured(@Query(value = "count") int count);
+
   @DELETE("users/{userId}/likes/{likeId}")
   Completable deleteUserLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("likeId") String likeId);
 
   @GET("search")
   Observable<List<Sketch>> searchSketches(@Query("q") String searchTerm);
+
   @DELETE("users/{userId}/sketches/{sketchId}")
   Completable deleteSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String likeId);
 
-
+  @GET("search/home/")
+  Observable<List<Sketch>> getRecentSketches();
 
 
   static ProcessThisService getInstance() {

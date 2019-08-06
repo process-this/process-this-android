@@ -57,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
    private void bind (Sketch sketch){
      sketchName.setText(sketch.getSketchTitle());
 //     sketchThumbnail.setImageDrawable(sketch.getThumbnail());
-     sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch3));
+     sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch2));
    }
 
   }
