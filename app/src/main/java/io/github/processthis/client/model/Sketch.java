@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.google.gson.annotations.SerializedName;
 
 @Entity
 public class Sketch {
-
 
 
   @PrimaryKey(autoGenerate = true)
@@ -16,6 +16,7 @@ public class Sketch {
 
   @NonNull
   @ColumnInfo(name = "sketch_title")
+  @SerializedName("name")
   private String sketchTitle;
 
   @ColumnInfo(name = "sketch_description")
@@ -26,7 +27,7 @@ public class Sketch {
 
   @ColumnInfo(name = "is_shared")
   private boolean isShared;
-  
+
   private String code;
 
   public Sketch() {

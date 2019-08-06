@@ -20,6 +20,8 @@ public class SketchViewModel extends AndroidViewModel implements LifecycleObserv
   private MutableLiveData<List<Sketch>> searchResults = new MutableLiveData<>();
   private MutableLiveData<List<Sketch>> featuredFeed = new MutableLiveData<>();
   private MutableLiveData<List<Sketch>> recentSketches = new MutableLiveData<>();
+  private MutableLiveData<List<Sketch>> userSketches = new MutableLiveData<>();
+
   private CompositeDisposable pending = new CompositeDisposable();
 
 
@@ -52,8 +54,17 @@ public class SketchViewModel extends AndroidViewModel implements LifecycleObserv
     return recentSketches;
   }
 
+  public LiveData<List<Sketch>> getUserProfileSketches(String oauthHeader, String userId) {
+    pending.add(
+        service.getUserProfileSketches(oauthHeader, userId)
+            .subscribeOn(Schedulers.io())
+            .subscribe((sketches) -> userSketches.postValue(sketches)));
+    return userSketches;
+  } // TODO verify this method will result in sketches by current user
+
+
   @OnLifecycleEvent(Event.ON_STOP)
-  private void disposePending(){
+  private void disposePending() {
     pending.clear();
   }
 

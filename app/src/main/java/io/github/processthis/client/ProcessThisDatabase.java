@@ -9,25 +9,27 @@ import androidx.room.TypeConverters;
 import io.github.processthis.client.ProcessThisDatabase.Converters;
 import io.github.processthis.client.model.Sketch;
 import io.github.processthis.client.model.Source;
-import io.github.processthis.client.model.dao.SourceDao;
 import io.github.processthis.client.model.dao.SketchDao;
+import io.github.processthis.client.model.dao.SourceDao;
 import java.util.Date;
 
 @Database(entities = {Sketch.class, Source.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class ProcessThisDatabase extends RoomDatabase {
 
-    public abstract SketchDao SketchDao();
-    public abstract SourceDao SourceDao();
-    private static ProcessThisDatabase INSTANCE;
+  public abstract SketchDao SketchDao();
 
-    public static ProcessThisDatabase getInstance(Context context) {
-      if (INSTANCE == null) {
-        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-            ProcessThisDatabase.class, "process_this_room").build();
-      }
-      return INSTANCE;
+  public abstract SourceDao SourceDao();
+
+  private static ProcessThisDatabase INSTANCE;
+
+  public static ProcessThisDatabase getInstance(Context context) {
+    if (INSTANCE == null) {
+      INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+          ProcessThisDatabase.class, "process_this_room").build();
     }
+    return INSTANCE;
+  }
 
   public static class Converters {
 

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = Sketch.class,
-childColumns = "sketch_id", parentColumns = "sketch_id"))
+    childColumns = "sketch_id", parentColumns = "sketch_id"))
 public class Source {
 
   @PrimaryKey(autoGenerate = true)
@@ -42,7 +42,6 @@ public class Source {
   public long getSketchId() {
     return sketchId;
   }
-
 
 
   public long getSourceId() {

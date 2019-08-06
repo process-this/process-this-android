@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Pojo class for setting and retrieving Userprofile information from the ProcessThis RESTful web API
+ * Pojo class for setting and retrieving Userprofile information from the ProcessThis RESTful web
+ * API
  */
 public class UserProfile {
 

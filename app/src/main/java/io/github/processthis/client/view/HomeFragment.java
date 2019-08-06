@@ -28,6 +28,8 @@ public class HomeFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_home, container, false);
     recyclerView = view.findViewById(R.id.recycler_view_home);
+    recyclerView.setLayoutManager(new GridAutoFitLayoutManager(getContext(),
+        (int) getContext().getResources().getDimension(R.dimen.home_cell_size)));
     return view;
   }
 

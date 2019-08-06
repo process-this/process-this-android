@@ -4,6 +4,7 @@ import io.github.processthis.client.parsing.Token.TokenType;
 import java.util.LinkedList;
 
 public class Tokenizer {
+
   private final char[] toTokenize;
   private int currentIndex;
   private static final String[] RESERVED_WORDS = new String[]{
@@ -24,21 +25,21 @@ public class Tokenizer {
       "double", "in", "static", "with"
   };
 
-  public Tokenizer(String toTokenize){
+  public Tokenizer(String toTokenize) {
     this.toTokenize = toTokenize.toCharArray();
   }
 
-  private char nextChar(){
+  private char nextChar() {
     return toTokenize[(currentIndex + 1 < toTokenize.length) ? ++currentIndex : currentIndex++];
   }
 
-  private boolean hasNext(){
+  private boolean hasNext() {
     return currentIndex < toTokenize.length;
   }
 
-  private boolean isReservedWord(String word){
-    for (String reserved : RESERVED_WORDS){
-      if (word.equals(reserved)){
+  private boolean isReservedWord(String word) {
+    for (String reserved : RESERVED_WORDS) {
+      if (word.equals(reserved)) {
         return true;
       }
     }
@@ -46,12 +47,12 @@ public class Tokenizer {
     return false;
   }
 
-  public LinkedList<Token> Tokenize(){
+  public LinkedList<Token> Tokenize() {
     LinkedList<Token> result = new LinkedList<>();
     char currentChar = toTokenize[0];
 
-    while (hasNext()){
-      switch (currentChar){
+    while (hasNext()) {
+      switch (currentChar) {
         case ' ':
         case '\t':
         case '\n':
@@ -72,7 +73,7 @@ public class Tokenizer {
           int index = currentIndex;
 
           while (hasNext() && (Character.isDigit(currentChar) || currentChar == 'e' ||
-              currentChar == '.' || currentChar == '-')){
+              currentChar == '.' || currentChar == '-')) {
             currentChar = nextChar();
           }
 
@@ -83,27 +84,27 @@ public class Tokenizer {
           int index = currentIndex;
           currentChar = nextChar();
 
-          if (!hasNext()){
+          if (!hasNext()) {
             break;
           }
-          if (currentChar == '/'){
-            while (hasNext() && currentChar != '\n'){
+          if (currentChar == '/') {
+            while (hasNext() && currentChar != '\n') {
               currentChar = nextChar();
             }
 
             result.addLast(new Token(index, currentIndex, TokenType.COMMENT));
-            if (hasNext()){
+            if (hasNext()) {
               currentChar = nextChar();
             }
 
-          } else if (currentChar == '*'){
+          } else if (currentChar == '*') {
 
-            while (hasNext()){
+            while (hasNext()) {
               currentChar = nextChar();
 
-              if (hasNext() && currentChar == '*'){
+              if (hasNext() && currentChar == '*') {
                 currentChar = nextChar();
-                if (hasNext() && currentChar == '/'){
+                if (hasNext() && currentChar == '/') {
                   currentChar = nextChar();
                   break;
                 }
@@ -121,11 +122,11 @@ public class Tokenizer {
           int index = currentIndex;
           currentChar = nextChar();
 
-          while (hasNext() && currentChar != endChar){
+          while (hasNext() && currentChar != endChar) {
             currentChar = nextChar();
           }
 
-          if (hasNext()){
+          if (hasNext()) {
             currentChar = nextChar();
           }
 
@@ -144,7 +145,7 @@ public class Tokenizer {
               result.addLast(new Token(index, currentIndex, TokenType.KEYWORD));
             }
           } else {
-            if (hasNext()){
+            if (hasNext()) {
               currentChar = nextChar();
             }
           }

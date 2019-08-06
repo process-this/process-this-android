@@ -14,6 +14,7 @@ import io.github.processthis.client.model.Sketch;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
+
   private Context context;
   private List<Sketch> sketches;
 
@@ -44,21 +45,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
     return sketches.size();
   }
 
-  class SketchHolder extends RecyclerView.ViewHolder{
+  class SketchHolder extends RecyclerView.ViewHolder {
+
     TextView sketchName;
     ImageView sketchThumbnail;
 
-   private SketchHolder(View itemView){
-     super(itemView);
-     sketchName = itemView.findViewById(R.id.sketch_title);
-     sketchThumbnail = itemView.findViewById(R.id.sketch_image);
-   }
+    private SketchHolder(View itemView) {
+      super(itemView);
+      sketchName = itemView.findViewById(R.id.sketch_title);
+      sketchThumbnail = itemView.findViewById(R.id.sketch_image);
+    }
 
-   private void bind (Sketch sketch){
-     sketchName.setText(sketch.getSketchTitle());
+    private void bind(Sketch sketch) {
+      sketchName.setText(sketch.getSketchTitle());
 //     sketchThumbnail.setImageDrawable(sketch.getThumbnail());
-     sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch2));
-   }
+      sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch2));
+    }
 
   }
 }

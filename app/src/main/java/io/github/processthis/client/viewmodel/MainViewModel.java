@@ -16,12 +16,10 @@ import io.github.processthis.client.service.ProcessThisService;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel
     implements Observable, LifecycleObserver {
-
 
 
   private MutableLiveData<UserProfile> userProfileResult;
@@ -59,7 +57,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findUser(){
+  public void findUser() {
     pending.add(
         ProcessThisService.getInstance().getSingleUserProfile(oauthHeader, userId)
             .subscribeOn(Schedulers.io())
@@ -68,7 +66,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findUserLikes(){
+  public void findUserLikes() {
     pending.add(
         ProcessThisService.getInstance().getUserProfilesLikes(oauthHeader, userId)
             .subscribeOn(Schedulers.io())
@@ -77,7 +75,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findSketchLikes(){
+  public void findSketchLikes() {
     pending.add(
         ProcessThisService.getInstance().getSketchLikes(oauthHeader, userId, sketchId)
             .subscribeOn(Schedulers.io())
@@ -86,7 +84,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addUserProfile(){
+  public void addUserProfile() {
     pending.add(
         ProcessThisService.getInstance().postUserProfile(oauthHeader)
             .subscribeOn(Schedulers.io())
@@ -95,7 +93,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addSketch(){
+  public void addSketch() {
     pending.add(
         ProcessThisService.getInstance().postSketch(oauthHeader)
             .subscribeOn(Schedulers.io())
@@ -104,30 +102,34 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addLike(){
+  public void addLike() {
     pending.add(
-        ProcessThisService.getInstance().putLike(oauthHeader, userId, sketchId )
+        ProcessThisService.getInstance().putLike(oauthHeader, userId, sketchId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe((userProfile) -> userProfileResult.setValue(userProfile))
     );
   }
 
-  public void unlike(){
+  public void unlike() {
     pending.add(
         ProcessThisService.getInstance().deleteUserLike(oauthHeader, userId, likeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(() -> {}, (ex) -> {})
+            .subscribe(() -> {
+            }, (ex) -> {
+            })
     );
   }
 
-  public void deleteSketch(){
+  public void deleteSketch() {
     pending.add(
         ProcessThisService.getInstance().deleteSketch(oauthHeader, userId, sketchId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(() -> {}, (ex) -> {})
+            .subscribe(() -> {
+            }, (ex) -> {
+            })
     );
   }
 
