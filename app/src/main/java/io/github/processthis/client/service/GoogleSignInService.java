@@ -1,6 +1,7 @@
 package io.github.processthis.client.service;
 
 import android.app.Application;
+import android.net.Uri;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -23,6 +24,8 @@ public class GoogleSignInService {
         .build();
     client = GoogleSignIn.getClient(context, options);
   }
+
+
 
   public static void setContext(Application context) {
     GoogleSignInService.context = context;
