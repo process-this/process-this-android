@@ -5,14 +5,30 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="horizontal">
 
+  <EditText
+    android:id="@+id/sketchName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="center"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    />
+
   <LinearLayout
     android:id="@+id/buttonRibbon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/sketchName"
     android:background="@color/colorPrimaryDark">
+
+  <ImageButton
+    android:id="@+id/save"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ic_arrow"
+    />
 
     <ImageButton
       android:id="@+id/actionButton"

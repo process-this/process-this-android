@@ -32,11 +32,20 @@ public class MainViewModel extends AndroidViewModel
   private String userId;
   private String sketchId;
   private String likeId;
+  private Sketch sketch;
 
   public MainViewModel(@NonNull Application application) {
     super(application);
     oauthHeader = String.format(BuildConfig.AUTHORIZATION_FORMAT,
         GoogleSignInService.getInstance().getAccount().getIdToken());
+  }
+
+  public Sketch getSketch() {
+    return sketch;
+  }
+
+  public void setSketch(Sketch sketch) {
+    this.sketch = sketch;
   }
 
   public void findASketch() {
@@ -95,7 +104,7 @@ public class MainViewModel extends AndroidViewModel
 
   public void addSketch() {
     pending.add(
-        ProcessThisService.getInstance().postSketch(oauthHeader)
+        ProcessThisService.getInstance().postSketch(oauthHeader, userId, sketch)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe((sketch) -> sketchResult.setValue(sketch))

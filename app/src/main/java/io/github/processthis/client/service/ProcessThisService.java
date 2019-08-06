@@ -48,7 +48,7 @@ public interface ProcessThisService {
   Single<UserProfile> postUserProfile(@Header("Authorization") String oauthHeader);
 
   @POST
-  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader);
+  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader, String userId, Sketch sketch);
 
   @PUT
   Single<UserProfile> putLike(@Header("Authorization") String oauthHeader,

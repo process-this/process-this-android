@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.github.processthis.client.view.SketchView
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <ImageButton
+    android:id="@+id/close"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/ic_x"
+    />
+
+
+</io.github.processthis.client.view.SketchView>

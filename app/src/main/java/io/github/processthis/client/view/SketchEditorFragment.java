@@ -20,14 +20,19 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView.BufferType;
+import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import io.github.processthis.client.R;
 import io.github.processthis.client.base64.Base64;
+import io.github.processthis.client.model.Sketch;
 import io.github.processthis.client.parsing.Token;
 import io.github.processthis.client.parsing.Token.TokenType;
 import io.github.processthis.client.parsing.Tokenizer;
 import io.github.processthis.client.view.LineNumberedEditText;
+import io.github.processthis.client.viewmodel.MainViewModel;
+import io.github.processthis.client.viewmodel.SketchViewModel;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +46,11 @@ public class SketchEditorFragment extends Fragment {
   private LineNumberedEditText codeEditor;
   private ImageButton actionButton;
   private boolean isEditing;
+  private ImageButton saveButton;
+  private EditText sketchName;
+  private MainViewModel viewModel;
+
+
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +61,8 @@ public class SketchEditorFragment extends Fragment {
 
     codeEditor = frag.findViewById(R.id.editor);
     actionButton = frag.findViewById(R.id.actionButton);
+    saveButton = frag.findViewById(R.id.save);
+    sketchName = frag.findViewById(R.id.sketchName);
 
     actionButton.setOnClickListener(new ActionButtonListener());
 
@@ -95,8 +107,22 @@ public class SketchEditorFragment extends Fragment {
       }
     });
 
+
+    saveButton.setOnClickListener((view) -> {
+      viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+      if(!sketchName.getText().toString().isEmpty()){
+        Toast.makeText(getContext(), "You must name your sketch", Toast.LENGTH_LONG);
+      }else{
+        Sketch sketch = new Sketch();
+        sketch.setSketchTitle(sketchName.getText().toString());
+        sketch.setCode(getEncodedSource());
+        viewModel.setSketch(sketch);
+        viewModel.addSketch();
+      }
+    });
     return frag;
   }
+
 
   /**
    * Returns the base 64 encoded source code displayed in the editor.
