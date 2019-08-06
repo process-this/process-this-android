@@ -21,7 +21,7 @@
       android:src="@drawable/start_script_icon"/>
   </LinearLayout>
 
-  <WebView
+  <io.github.processthis.client.view.SketchView
     app:layout_constraintTop_toBottomOf="@id/buttonRibbon"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"

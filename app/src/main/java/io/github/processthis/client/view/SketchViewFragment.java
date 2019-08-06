@@ -37,7 +37,7 @@ import java.util.TimerTask;
  */
 public class SketchViewFragment extends Fragment {
 
-  private WebView preview;
+  private SketchView preview;
   private LineNumberedEditText codeEditor;
   private ImageButton actionButton;
   private boolean isEditing;
@@ -56,7 +56,7 @@ public class SketchViewFragment extends Fragment {
 
     preview = frag.findViewById(R.id.sketchPreview);
 
-    preview.setWebChromeClient(new WebChromeClient() {
+    /*preview.setWebChromeClient(new WebChromeClient() {
       @Override
       public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
         //Log the message here.
@@ -64,7 +64,7 @@ public class SketchViewFragment extends Fragment {
 
         return super.onConsoleMessage(consoleMessage);
       }
-    });
+    });*/
     preview.setWebViewClient(new WebViewClient() {
 
       @Override
@@ -78,16 +78,6 @@ public class SketchViewFragment extends Fragment {
       }
 
     });
-    WebSettings settings = preview.getSettings();
-
-    settings.setJavaScriptEnabled(true);// TODO We need to be very very careful here
-    settings.setDomStorageEnabled(true);
-    settings.setLoadWithOverviewMode(true);
-    settings.setUseWideViewPort(true);
-    settings.setBuiltInZoomControls(true);
-    settings.setDisplayZoomControls(false);
-    settings.setSupportZoom(true);
-    settings.setDefaultTextEncodingName("utf-8");
 
     codeEditor.addTextChangedListener(new DelayedTextWatcher(codeEditor) {
 
@@ -126,20 +116,7 @@ public class SketchViewFragment extends Fragment {
   }
 
   private void runSketch(){
-    String htmlFormatter = "<!DOCTYPE html>\n"
-        + "<html lang=\"en\">\n"
-        + "<head>\n"
-        + "<meta charset=\"UTF-8\">\n"
-        + "<script src=\"file:///android_asset/p5.js\"></script>\n"
-        + "<title>Title</title>\n"
-        + "</head>\n"
-        + "<body>\n"
-        + "<script> %s </script>\n"
-        + "</body>\n"
-        + "</html>";
-    String source = String.format(htmlFormatter, codeEditor.getText().toString());
-
-    preview.loadDataWithBaseURL("file:///android_asset/p5.js", source, "text/html", "UTF-8", null);
+    preview.loadSketch(codeEditor.getText().toString());
   }
 
   @Override
@@ -262,9 +239,6 @@ public class SketchViewFragment extends Fragment {
 
     @Override
     public void afterTextChanged(final Editable s) {
-      //isEditing = true;
-      //watching.setText(formatString(watching.getText().toString(), '{', '}'));
-      //isEditing = false;
       timer.cancel();
       timer = new Timer();
 
