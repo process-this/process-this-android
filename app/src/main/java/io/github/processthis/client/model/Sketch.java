@@ -26,6 +26,8 @@ public class Sketch {
 
   @ColumnInfo(name = "is_shared")
   private boolean isShared;
+  
+  private String code;
 
   public Sketch() {
   }

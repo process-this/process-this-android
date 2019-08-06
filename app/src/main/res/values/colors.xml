@@ -3,6 +3,10 @@
   <color name="colorPrimary">#121111</color>
   <color name="colorPrimaryDark">#4D4E52</color>
   <color name="colorAccent2">#FFFFFFFF</color>
-
   <color name="colorAccent">#500041</color>
+
+  <color name="stringHighlightColor">#BF1199</color>
+  <color name="keywordHighlightColor">#FF8C00</color>
+  <color name="commentHighlightColor">#008C00</color>
+  <color name="numberHighlightColor">#0088CC</color>
 </resources>
