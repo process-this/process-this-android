@@ -23,13 +23,11 @@ import android.widget.TextView.BufferType;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
+import io.github.processthis.client.base64.Base64;
 import io.github.processthis.client.parsing.Token;
 import io.github.processthis.client.parsing.Token.TokenType;
 import io.github.processthis.client.parsing.Tokenizer;
 import io.github.processthis.client.view.LineNumberedEditText;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,31 +45,12 @@ public class SketchViewFragment extends Fragment {
     // Inflate the layout for this fragment
     View frag = inflater.inflate(R.layout.ide_fragment, container, false);
     // TODO Set up debug console.
-    String src = "alert('Hello!');\n"
-        + "function setup(){\n"
-        + "alert('setup()');\n"
-        + "createCanvas(640, 480);\n"
-        + "fill(255, 0, 0);\n"
-        + "ellipse(40, 40, 80, 80);\n"
-        + "}\n"
-        + "\n"
-        + "function draw(){\n"
-        + "print('draw');\n"
-        + "if (mouseIsPressed){\n"
-        + "fill(0);\n"
-        + "}\n"
-        + "else{\n"
-        + "fill(255);\n"
-        + "}\n"
-        + "ellipse(mouseX, mouseY, 80, 80);\n"
-        + "}";
 
     codeEditor = frag.findViewById(R.id.editor);
     actionButton = frag.findViewById(R.id.actionButton);
 
     actionButton.setOnClickListener(new ActionButtonListener());
 
-    codeEditor.setText(highlightText(formatString(src)));
     preview = frag.findViewById(R.id.sketchPreview);
 
     preview.setWebChromeClient(new WebChromeClient() {
@@ -127,11 +106,12 @@ public class SketchViewFragment extends Fragment {
   }
 
   public String getEncodedSource(){
-    return null;
+    return Base64.encode(codeEditor.getText().toString());
   }
 
   public void setSource(String encodedSource){
-
+    String source = Base64.decode(encodedSource);
+    codeEditor.setText(source);
   }
 
   private void runSketch(){
