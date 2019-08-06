@@ -1,4 +1,4 @@
-package io.github.processthis.client.controller;
+package io.github.processthis.client.view;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +32,9 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The fragment that is responsible for handling code editing, and running code.
+ */
 public class SketchViewFragment extends Fragment {
 
   private WebView preview;
@@ -105,10 +108,18 @@ public class SketchViewFragment extends Fragment {
     return frag;
   }
 
+  /**
+   * Returns the base 64 encoded source code displayed in the editor.
+   * @return {@link String}
+   */
   public String getEncodedSource(){
     return Base64.encode(codeEditor.getText().toString());
   }
 
+  /**
+   * Sets the source code for the fragment to load into the code editor and code preview.
+   * @param encodedSource The base 64 encoded source {@link String} to be loaded.
+   */
   public void setSource(String encodedSource){
     String source = Base64.decode(encodedSource);
     codeEditor.setText(source);
@@ -174,31 +185,30 @@ public class SketchViewFragment extends Fragment {
   private SpannableString highlightText(String text) {
     SpannableString result = new SpannableString(text);
 
-    LinkedList<Token> tokens = new Tokenizer(text).Tokenize();
+    if (!text.isEmpty()) {
+      LinkedList<Token> tokens = new Tokenizer(text).Tokenize();
 
-    for (Token token : tokens){
-      if (token.getEnd() >= text.length()){
-        break;
-      }
-      if (token.getType() == TokenType.NUMBER){
-        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-            R.color.numberHighlightColor)), token.getStart(), token.getEnd(),
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.COMMENT){
-        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-            R.color.commentHighlightColor)), token.getStart(), token.getEnd(),
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.STRING){
-        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-            R.color.stringHighlightColor)), token.getStart(), token.getEnd(),
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      }
-      else if (token.getType() == TokenType.KEYWORD){
-        result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-            R.color.keywordHighlightColor)), token.getStart(), token.getEnd(),
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      for (Token token : tokens) {
+        if (token.getEnd() >= text.length()) {
+          break;
+        }
+        if (token.getType() == TokenType.NUMBER) {
+          result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+              R.color.numberHighlightColor)), token.getStart(), token.getEnd(),
+              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if (token.getType() == TokenType.COMMENT) {
+          result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+              R.color.commentHighlightColor)), token.getStart(), token.getEnd(),
+              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if (token.getType() == TokenType.STRING) {
+          result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+              R.color.stringHighlightColor)), token.getStart(), token.getEnd(),
+              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } else if (token.getType() == TokenType.KEYWORD) {
+          result.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+              R.color.keywordHighlightColor)), token.getStart(), token.getEnd(),
+              Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
       }
     }
 
