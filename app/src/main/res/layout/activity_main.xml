@@ -9,7 +9,7 @@
   tools:context=".controller.MainActivity">
 
   <!--  <fragment-->
-<!--    android:name="io.github.processthis.client.view.SketchViewFragment"-->
+<!--    android:name="io.github.processthis.client.view.SketchEditorFragmentnt"-->
 <!--    android:id="@+id/sketch_preview"-->
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent"/>-->

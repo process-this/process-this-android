@@ -35,7 +35,7 @@ import java.util.TimerTask;
 /**
  * The fragment that is responsible for handling code editing, and running code.
  */
-public class SketchViewFragment extends Fragment {
+public class SketchEditorFragment extends Fragment {
 
   private SketchView preview;
   private LineNumberedEditText codeEditor;
@@ -201,6 +201,7 @@ public class SketchViewFragment extends Fragment {
 
       if (editorOpen){
         preview.setVisibility(View.GONE);
+        preview.stopSketch();
         codeEditor.setVisibility(View.VISIBLE);
         actionButton.setImageDrawable(ContextCompat.getDrawable(getContext(),
             R.drawable.start_script_icon));

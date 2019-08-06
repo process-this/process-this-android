@@ -25,7 +25,7 @@
   <fragment
     android:id="@+id/navigation_sketch_view"
     android:label="sketchView"
-    android:name="io.github.processthis.client.view.SketchViewFragment"
+    android:name="io.github.processthis.client.view.SketchEditorFragment"
     tools:layout="@layout/ide_fragment"/>
 
 

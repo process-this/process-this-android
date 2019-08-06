@@ -27,7 +27,7 @@ import io.github.processthis.client.view.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-//  private SketchViewFragment sketchView;
+//  private SketchEditorFragment sketchView;
 
 
   private TextView mTextMessage;

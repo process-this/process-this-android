@@ -64,20 +64,27 @@ public class SketchView extends WebView {
     settings.setDefaultTextEncodingName("utf-8");
   }
 
+  /**
+   * Loads and runs a sketch given raw source code
+   * @param sourceCode The source code {@link String} to be run.
+   */
   public void loadSketch(String sourceCode){
     String source = String.format(HTML_FORMATTER, sourceCode);
     loadDataWithBaseURL("file:///android_asset/p5.js", source, "text/html", "UTF-8", null);
   }
 
+  /**
+   * Loads and runs a sketch given the base 64 encoded version of the source code
+   * @param encodedSourceCode The base64 encoded version of the source code
+   */
   public void loadSketchBase64(String encodedSourceCode){
     String sourceCode = Base64.decode(encodedSourceCode);
     loadSketch(sourceCode);
   }
 
-  public void pauseSketch(){
-    // TODO Implement this
-  }
-
+  /**
+   * Stops the sketch from playing and loads a default page
+   */
   public void stopSketch(){
     loadUrl("about:blank");
   }
