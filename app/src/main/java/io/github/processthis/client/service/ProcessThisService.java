@@ -50,14 +50,15 @@ public interface ProcessThisService {
   @PUT
   Single<UserProfile> putLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String sketchId);
 
+
   @GET("search/feed")
   Observable<List<Sketch>> getFeatured(@Query(value = "count") int count);
 
-  @DELETE("users/{userId}/likes/{likeId}")
-  Completable deleteUserLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("likeId") String likeId);
-
   @GET("search")
   Observable<List<Sketch>> searchSketches(@Query("q") String searchTerm);
+
+  @DELETE("users/{userId}/likes/{likeId}")
+  Completable deleteUserLike(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("likeId") String likeId);
 
   @DELETE("users/{userId}/sketches/{sketchId}")
   Completable deleteSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId, @Path("sketchId") String likeId);

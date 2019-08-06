@@ -27,7 +27,7 @@ public class FeaturedFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_featured, container, false);
-    recyclerView = view.findViewById(R.id.recycler_view);
+
     return view;
   }
 
