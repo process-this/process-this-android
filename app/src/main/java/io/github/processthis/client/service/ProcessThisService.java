@@ -92,7 +92,7 @@ public interface ProcessThisService {
           .client(client) // This should be removed/commented out for production release.
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create()) // TODO Check; maybe change?
-          .baseUrl(BuildConfig.BASE_URL)
+          //.baseUrl(BuildConfig.BASE_URL)
           .build();
       INSTANCE = retrofit.create(ProcessThisService.class);
     }

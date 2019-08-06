@@ -20,7 +20,7 @@ import io.github.processthis.client.view.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-//  private SketchViewFragment sketchView;
+//  private SketchEditorFragment sketchView;
 
   private static int SPLASH_SCREEN_TIME_OUT = 2000;
 
