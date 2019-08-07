@@ -19,7 +19,7 @@ import java.util.List;
  * for the view in the Featured fragment.
  */
 
-public class FeaturedViewModel extends AndroidViewModel implements LifecycleObserver {
+public class SketchViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private ProcessThisService service;
   private MutableLiveData<List<Sketch>> searchResults = new MutableLiveData<>();
@@ -34,7 +34,7 @@ public class FeaturedViewModel extends AndroidViewModel implements LifecycleObse
    * Constructer to provide the application instance for the view model.
    * @param application
    */
-  public FeaturedViewModel(@NonNull Application application) {
+  public SketchViewModel(@NonNull Application application) {
     super(application);
     service = ProcessThisService.getInstance();
   }
