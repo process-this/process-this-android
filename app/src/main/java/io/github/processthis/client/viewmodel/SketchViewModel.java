@@ -14,7 +14,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
-public class SketchViewModel extends AndroidViewModel implements LifecycleObserver {
+/**
+ * Viewmodel for the Featured fragment, this view model is lifecycle aware, populates the data needed
+ * for the view in the Featured fragment.
+ */
+
+public class FeaturedViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private ProcessThisService service;
   private MutableLiveData<List<Sketch>> searchResults = new MutableLiveData<>();
@@ -25,11 +30,20 @@ public class SketchViewModel extends AndroidViewModel implements LifecycleObserv
   private CompositeDisposable pending = new CompositeDisposable();
 
 
-  public SketchViewModel(@NonNull Application application) {
+  /**
+   * Constructer to provide the application instance for the view model.
+   * @param application
+   */
+  public FeaturedViewModel(@NonNull Application application) {
     super(application);
     service = ProcessThisService.getInstance();
   }
 
+  /**
+   * Livedata method that provides a list of sketches to the view
+   * @param count
+   * @return returns the list of sketches
+   */
   public LiveData<List<Sketch>> getFeaturedFeed(int count) {
     pending.add(
         service.getFeatured(count)
@@ -38,6 +52,11 @@ public class SketchViewModel extends AndroidViewModel implements LifecycleObserv
     return featuredFeed;
   }
 
+  /**
+   * Livedata method that provides a list of sketches to client based on thier searchterms
+   * @param searchTerm
+   * @return searchResults of sketches
+   */
   public LiveData<List<Sketch>> getSearchResults(String searchTerm) {
     pending.add(
         service.searchSketches(searchTerm)
