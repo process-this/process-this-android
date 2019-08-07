@@ -17,6 +17,9 @@ import io.github.processthis.client.R;
 import io.github.processthis.client.adapter.RecyclerViewAdapter;
 import io.github.processthis.client.viewmodel.SketchViewModel;
 
+/**
+ * This Fragment is where the user will interact with his/her/their profile
+ */
 public class UserProfileFragment extends Fragment {
 
   private RecyclerView recyclerView;
@@ -32,6 +35,10 @@ public class UserProfileFragment extends Fragment {
 
   }
 
+  /**
+   * At the beginning of the fragment lifecycle this method inflates the fragment_user_profile
+   * layout as a recycler view and returns that as the view
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,6 +62,9 @@ public class UserProfileFragment extends Fragment {
     return view;
   }
 
+  /**
+   * At lifecycle start ths methord loads any saved instance data into the recycler view
+   */
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);

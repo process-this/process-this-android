@@ -9,12 +9,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import io.github.processthis.client.R;
 
+/**
+ * This Fragment is where the User will interact with their profile
+ */
 public class EditUserProfileFragment extends Fragment {
 
   public EditUserProfileFragment() {
 
   }
 
+  /**
+   * The beginning of the android lifecycle for a fragment, this method inflates the associate
+   * fragment_edituser layout and returns a view
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

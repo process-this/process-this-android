@@ -12,6 +12,9 @@ import android.widget.EditText;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
+/**
+ * This class creates the Edit Text where Asher makes miracles happen
+ */
 public class LineNumberedEditText extends AppCompatEditText {
   private final Context context;
   private Rect rect;

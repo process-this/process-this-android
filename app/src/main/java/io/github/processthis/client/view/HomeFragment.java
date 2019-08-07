@@ -13,15 +13,25 @@ import io.github.processthis.client.R;
 import io.github.processthis.client.adapter.RecyclerViewAdapter;
 import io.github.processthis.client.viewmodel.SketchViewModel;
 
+/**
+ * Ths fragment displays the ten most recently created sketches
+ */
 public class HomeFragment extends Fragment {
 
   private RecyclerView recyclerView;
   private SketchViewModel viewModel;
 
+  /**
+   * The required fragment constructor
+   */
   public HomeFragment() {
 
   }
 
+  /**
+   * The beginning of the android lifecycle for a fragment, this method inflates the associated
+   * fragment_home layout and returns a view as  a recycler view
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,6 +43,10 @@ public class HomeFragment extends Fragment {
     return view;
   }
 
+  /*** This method loads any saved instance data into the recycler view when the main activity is
+   * created
+   * @param savedInstanceState
+   */
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);

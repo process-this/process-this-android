@@ -7,6 +7,9 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import java.util.Date;
 
+/**
+ * This class is presently not being used. Later versions of the app will allow for multi-source Sketches
+ */
 @Entity(foreignKeys = @ForeignKey(entity = Sketch.class,
     childColumns = "sketch_id", parentColumns = "sketch_id"))
 public class Source {

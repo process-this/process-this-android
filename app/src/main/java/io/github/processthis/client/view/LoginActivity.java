@@ -11,22 +11,26 @@ import io.github.processthis.client.R;
 import io.github.processthis.client.controller.MainActivity;
 import io.github.processthis.client.service.GoogleSignInService;
 
+/**
+ * This class is part of google sign in and is the activity that hosts the sign-in View
+ */
 public class LoginActivity extends AppCompatActivity {
 
   private static final int REQUEST_CODE = 1000;
 
-
-
-
+  /**This methid loads any saved instances of login data
+   * @param savedInstanceState
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
-
-
     findViewById(R.id.sign_in).setOnClickListener((view) -> signIn());
   }
 
+  /**
+   * This method calls the Goggle-Sign in service upon start of the lifecycle
+   */
   @Override
   protected void onStart() {
     super.onStart();
@@ -37,6 +41,11 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
+  /**This activity reacts to a successful or unsuccesful sign-in process
+   * @param requestCode
+   * @param resultCode
+   * @param data
+   */
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -54,11 +63,17 @@ public class LoginActivity extends AppCompatActivity {
   }
 
 
+  /**
+   * this method compares request codes and determines sign-in efficacy
+   */
   private void signIn() {
     Intent intent = GoogleSignInService.getInstance().getClient().getSignInIntent();
     startActivityForResult(intent, REQUEST_CODE);
   }
 
+  /**
+   * Id sign-in was succesful this activity calls the main activity, starting the app in earnest
+   */
   private void switchToMain() {
     Intent intent = new Intent(this, MainActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

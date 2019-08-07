@@ -5,16 +5,27 @@ import android.util.TypedValue;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * This class extends GridLayout Manager and is used by the recyclerview in the userProfile,
+ * featured, and home fragments
+ */
 public class GridAutoFitLayoutManager extends GridLayoutManager {
 
   private int mColumnWidth;
   private boolean mColumnWidthChanged = true;
 
+  /**
+   * This constructor sets the column with and context object of the class
+   */
   public GridAutoFitLayoutManager(Context context, int columnWidth) {
     super(context, 1);
     setColumnWidth(checkedColumnWidth(context, columnWidth));
   }
 
+  /**
+   * This second overloaded constructor ets the column width of he grid layout when a reverse layout
+   * is desired
+   */
   public GridAutoFitLayoutManager(Context context, int columnWidth, int orientation,
       boolean reverseLayout) { /* Initially set spanCount to 1, will be changed automatically later. */
     super(context, 1, orientation, reverseLayout);
@@ -31,6 +42,9 @@ public class GridAutoFitLayoutManager extends GridLayoutManager {
     return columnWidth;
   }
 
+  /**
+   * This method sets the column width if changed
+   */
   public void setColumnWidth(int newColumnWidth) {
     if (newColumnWidth > 0 && newColumnWidth != mColumnWidth) {
       mColumnWidth = newColumnWidth;
@@ -38,6 +52,9 @@ public class GridAutoFitLayoutManager extends GridLayoutManager {
     }
   }
 
+  /**
+   * This overridden required method sets the dimensions of the child elements in a grid view
+   */
   @Override
   public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
     if (mColumnWidthChanged && mColumnWidth > 0) {
