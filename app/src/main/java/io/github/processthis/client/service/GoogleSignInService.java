@@ -29,26 +29,38 @@ public class GoogleSignInService {
   }
 
 
-  /**This method sets the Context object to the Google Sign-in activity
-   * @param context
+  /**
+   * This method sets the Context object to the Google Sign-in activity
    */
   public static void setContext(Application context) {
     GoogleSignInService.context = context;
   }
 
+  /**
+   * This method gets the client to be used in Sign-In
+   */
   public GoogleSignInClient getClient() {
     return client;
   }
 
+  /**
+   * Gets the google account to bu used in Sign-In
+   */
   public GoogleSignInAccount getAccount() {
     return account;
   }
 
 
+  /**
+   * Sets the google account to bu used in Sign-In
+   */
   public void setAccount(GoogleSignInAccount account) {
     this.account = account;
   }
 
+  /**
+   * Gets the instance of Goggle Sign-In service to bu used in Sign-In
+   */
   public static GoogleSignInService getInstance() {
     return InstanceHolder.INSTANCE;
   }

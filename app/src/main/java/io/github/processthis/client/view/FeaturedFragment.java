@@ -13,15 +13,25 @@ import io.github.processthis.client.R;
 import io.github.processthis.client.adapter.RecyclerViewAdapter;
 import io.github.processthis.client.viewmodel.SketchViewModel;
 
+/**
+ * This fragment displays the featured (most-liked) sketches
+ */
 public class FeaturedFragment extends Fragment {
 
   private RecyclerView recyclerView;
   private SketchViewModel viewModel;
 
+  /**
+   * This is a required public constructor for a fragment
+   */
   public FeaturedFragment() {
 
   }
 
+  /**
+   * The beginning of the android lifecycle for a fragment, this method inflates the associated
+   * recyclerView fragment_featured layout layout and returns a view
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -33,6 +43,10 @@ public class FeaturedFragment extends Fragment {
     return view;
   }
 
+  /**
+   * This method loads any saved instance data into the recycler view when the main activity is
+   * started
+   */
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
