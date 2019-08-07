@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../process-this.github.io/docs/api" />
+    <option name="OTHER_OPTIONS" value="-bootclasspath &quot;C:\Program Files\Java\jdk1.8.0_212\jre\lib\rt.jar&quot;;C:\android\sdk\platforms\android-21\android.jar -link https://docs.oracle.com/javase/8/docs/api/ -linkoffline https://developer.android.com/reference &quot;C:\Users\El Jefe\Desktop\bootcamp\projects\process-this-android&quot; -link https://square.github.io/retrofit/2.x/retrofit/" />
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
