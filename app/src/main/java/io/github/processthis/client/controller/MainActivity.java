@@ -18,6 +18,9 @@ import io.github.processthis.client.service.GoogleSignInService;
 import io.github.processthis.client.view.LoginActivity;
 
 
+/**
+ * This class is a required class for any Android project. It includes required methods that define the views and fragments hosted by the Main Activity
+ */
 public class MainActivity extends AppCompatActivity {
 
 //  private SketchEditorFragment sketchView;
@@ -25,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
   private static int SPLASH_SCREEN_TIME_OUT = 2000;
 
 
+  /**
+   * The initial method and step in the Android Lifecycle. It consumes any previously saved data and defines te host functions for the main activity
+   * @param savedInstanceState any saved instances passed ot of a previous lifecycle
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -40,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     Navigation.setViewNavController(fab, navController);
 
     fab.setOnClickListener(new OnClickListener() {
+      /** This method defines whoch vew will be navigated to upon click of the floating action button
+       * @param view
+       */
       @Override
       public void onClick(View view) {
         navController.navigate(R.id.navigation_sketch_view);
