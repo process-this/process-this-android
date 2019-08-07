@@ -8,6 +8,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import io.github.processthis.client.BuildConfig;
 
+/**
+ * This class contains the necessary methods for the Google Sign-In Service
+ */
 public class GoogleSignInService {
 
   private static Application context;
@@ -26,6 +29,9 @@ public class GoogleSignInService {
   }
 
 
+  /**This method sets the Context object to the Google Sign-in activity
+   * @param context
+   */
   public static void setContext(Application context) {
     GoogleSignInService.context = context;
   }
