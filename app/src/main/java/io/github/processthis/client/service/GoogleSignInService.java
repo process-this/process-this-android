@@ -35,6 +35,7 @@ public class GoogleSignInService {
   }
 
   public GoogleSignInAccount getAccount() {
+
     return account;
   }
 

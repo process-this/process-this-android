@@ -109,7 +109,7 @@ public class SketchEditorFragment extends Fragment {
 
 
     saveButton.setOnClickListener((view) -> {
-      viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+//      viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
       if(!sketchName.getText().toString().isEmpty()){
         Toast.makeText(getContext(), "You must name your sketch", Toast.LENGTH_LONG);
       }else{

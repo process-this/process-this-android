@@ -40,6 +40,8 @@ public class MainViewModel extends AndroidViewModel
         GoogleSignInService.getInstance().getAccount().getIdToken());
   }
 
+
+
   public Sketch getSketch() {
     return sketch;
   }
