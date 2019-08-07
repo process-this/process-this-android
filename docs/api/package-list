@@ -1,0 +1,10 @@
+io.github.processthis.client
+io.github.processthis.client.adapter
+io.github.processthis.client.base64
+io.github.processthis.client.controller
+io.github.processthis.client.model
+io.github.processthis.client.model.dao
+io.github.processthis.client.parsing
+io.github.processthis.client.service
+io.github.processthis.client.view
+io.github.processthis.client.viewmodel
