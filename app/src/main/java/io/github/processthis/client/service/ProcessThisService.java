@@ -25,6 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -86,8 +87,9 @@ public interface ProcessThisService {
    * Posts a sketch. Requies oath in header. Should require userId for path, but I dont want to
    * change anything at this point
    */
-  @POST
-  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader, String userId, Sketch sketch);
+  @POST("users/{userId}/sketches/")
+  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader, @Path("userId") String userId,
+      @Body Sketch sketch);
 
   /**
    * Creates a Like object from a userprofile to a sketch. requires userId of the "liking" user and
