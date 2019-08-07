@@ -22,6 +22,7 @@ public class MainViewModel extends AndroidViewModel
     implements Observable, LifecycleObserver {
 
 
+
   private MutableLiveData<UserProfile> userProfileResult;
   private MutableLiveData<List<UserProfile>> userProfileListResults;
   private MutableLiveData<Sketch> sketchResult;
@@ -33,12 +34,23 @@ public class MainViewModel extends AndroidViewModel
   private String sketchId;
   private String likeId;
 
+
+  /**
+   * MainViewModel class for communications with ProcessThis RESTful API, provides methods
+   * to call, query, and post the API.
+   *
+   * @param application
+   */
   public MainViewModel(@NonNull Application application) {
     super(application);
     oauthHeader = String.format(BuildConfig.AUTHORIZATION_FORMAT,
         GoogleSignInService.getInstance().getAccount().getIdToken());
   }
 
+  /**
+   * Finds a sketch, requiring the oauthHeader for authentiction to the server, a userId and
+   * a sketchId so that a particular sketch may be retrieved by the client to view etc.
+   */
   public void findASketch() {
     pending.add(
         ProcessThisService.getInstance().getSingleSketch(oauthHeader, userId, sketchId)
@@ -48,6 +60,10 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
+  /**
+   * Method that takes a userId to retrieve a list of all sketches posted by a particular user.
+   *
+   */
   public void findUserSketchList() {
     pending.add(
         ProcessThisService.getInstance().getUserProfileSketches(oauthHeader, userId)
@@ -57,7 +73,10 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findUser() {
+  /**
+   * Method that takes a userId to retrieve the profile information that is associated with the id.
+   */
+  public void findUser(){
     pending.add(
         ProcessThisService.getInstance().getSingleUserProfile(oauthHeader, userId)
             .subscribeOn(Schedulers.io())
@@ -66,7 +85,10 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findUserLikes() {
+  /**
+   * Method that takes userId to retrieve a list of sketches that the user has given likes to.
+   */
+  public void findUserLikes(){
     pending.add(
         ProcessThisService.getInstance().getUserProfilesLikes(oauthHeader, userId)
             .subscribeOn(Schedulers.io())
@@ -75,7 +97,7 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void findSketchLikes() {
+  public void findSketchLikes(){
     pending.add(
         ProcessThisService.getInstance().getSketchLikes(oauthHeader, userId, sketchId)
             .subscribeOn(Schedulers.io())
@@ -84,7 +106,11 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addUserProfile() {
+  /**
+   * Method that will allow user to post their profile and the associated data that is needed to complete
+   * this request.
+   */
+  public void addUserProfile(){
     pending.add(
         ProcessThisService.getInstance().postUserProfile(oauthHeader)
             .subscribeOn(Schedulers.io())
@@ -93,7 +119,10 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addSketch() {
+  /**
+   * Method that will allow a user to post and publish a sketch they have created.
+   */
+  public void addSketch(){
     pending.add(
         ProcessThisService.getInstance().postSketch(oauthHeader)
             .subscribeOn(Schedulers.io())
@@ -102,43 +131,60 @@ public class MainViewModel extends AndroidViewModel
     );
   }
 
-  public void addLike() {
+  /**
+   * Method that will allow a user to post a like to a sketch by passing the userId of the
+   * of the client and the sketchId of the liked sketch
+   */
+  public void addLike(){
     pending.add(
-        ProcessThisService.getInstance().putLike(oauthHeader, userId, sketchId)
+        ProcessThisService.getInstance().putLike(oauthHeader, userId, sketchId )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe((userProfile) -> userProfileResult.setValue(userProfile))
     );
   }
 
-  public void unlike() {
+  /**
+   * Method that will allow user to unlike a sketch, passing the userId and SketchId to call the
+   * delete method on the server to delete the like.
+   */
+  public void unlike(){
     pending.add(
         ProcessThisService.getInstance().deleteUserLike(oauthHeader, userId, likeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(() -> {
-            }, (ex) -> {
-            })
+            .subscribe(() -> {}, (ex) -> {})
     );
   }
 
-  public void deleteSketch() {
+  /**
+   * Method that will pass the UserId and the SketchId in order to call the delete method in the
+   * sketchController of the API and call its delete method.
+   */
+  public void deleteSketch(){
     pending.add(
         ProcessThisService.getInstance().deleteSketch(oauthHeader, userId, sketchId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(() -> {
-            }, (ex) -> {
-            })
+            .subscribe(() -> {}, (ex) -> {})
     );
   }
 
-
+  /**
+   * Adds the observer so that the changes in the data in the view model may be observed and reflected
+   * in the views of the app.
+   *
+   * @param dataBufferObserver
+   */
   @Override
   public void addObserver(DataBufferObserver dataBufferObserver) {
 
   }
 
+  /**
+   * Method that can remove the Observer from the data that is associated with the ProcessThis web API.
+   * @param dataBufferObserver
+   */
   @Override
   public void removeObserver(DataBufferObserver dataBufferObserver) {
 
