@@ -64,9 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
   public void onBindViewHolder(@NonNull SketchHolder holder, int position) {
     Sketch sketch = sketches.get(position);
 
-    holder.bind(sketch, (adapterView, view, i, l) -> {
-
-    });
+    holder.bind(sketch);
   }
 
   /**
@@ -92,11 +90,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
       sketchThumbnail = itemView.findViewById(R.id.sketch_image);
     }
 
-    private void bind(Sketch sketch, OnItemClickListener listener) {
+    private void bind(Sketch sketch) {
       sketchName.setText(sketch.getSketchTitle());
 //     sketchThumbnail.setImageDrawable(sketch.getThumbnail());
       sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch2));
-      bind(sketch, listener);
+      //bind(sketch);
     }
 
   }
