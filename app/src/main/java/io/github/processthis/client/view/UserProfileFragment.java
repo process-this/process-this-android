@@ -54,7 +54,7 @@ public class UserProfileFragment extends Fragment {
     }
 
      profileImage = (ImageView) view.findViewById(R.id.user_image);
-    profileImage.setImageDrawable(getContext().getDrawable(R.drawable.sketch1));
+    profileImage.setImageDrawable(getContext().getDrawable(R.drawable.user));
       recyclerView = view.findViewById(R.id.recycler_view_user);
     recyclerView.setLayoutManager(new GridAutoFitLayoutManager(getContext(),
         (int) getContext().getResources().getDimension(R.dimen.featured_cell_size)));
