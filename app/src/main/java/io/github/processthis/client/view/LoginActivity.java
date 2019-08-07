@@ -2,6 +2,7 @@ package io.github.processthis.client.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

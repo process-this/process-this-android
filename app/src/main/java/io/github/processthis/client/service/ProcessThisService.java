@@ -75,7 +75,7 @@ public interface ProcessThisService {
    * change anything at this point
    */
   @POST
-  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader);
+  Single<Sketch> postSketch(@Header("Authorization") String oauthHeader, String userId, Sketch sketch);
 
   /**
    * Creates a Like object from a userprofile to a sketch. requires userId of the "liking" user and

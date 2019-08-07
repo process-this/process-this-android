@@ -47,6 +47,7 @@ public class GoogleSignInService {
    * Gets the google account to bu used in Sign-In
    */
   public GoogleSignInAccount getAccount() {
+
     return account;
   }
 
