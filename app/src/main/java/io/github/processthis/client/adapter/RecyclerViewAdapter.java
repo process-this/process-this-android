@@ -4,13 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import io.github.processthis.client.R;
 import io.github.processthis.client.adapter.RecyclerViewAdapter.SketchHolder;
 import io.github.processthis.client.model.Sketch;
+import io.github.processthis.client.view.StandaloneSketchViewFragment;
 import java.util.List;
 
 /**
@@ -21,7 +27,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
 
   private Context context;
   private List<Sketch> sketches;
-
 
   /**
    * This constructor is used to create an instance of the list of sketches to be inflated by the
@@ -57,7 +62,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
    */
   @Override
   public void onBindViewHolder(@NonNull SketchHolder holder, int position) {
-    holder.bind(sketches.get(position));
+    Sketch sketch = sketches.get(position);
+
+    holder.bind(sketch, (adapterView, view, i, l) -> {
+
+    });
   }
 
   /**
@@ -83,10 +92,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<SketchHolder> {
       sketchThumbnail = itemView.findViewById(R.id.sketch_image);
     }
 
-    private void bind(Sketch sketch) {
+    private void bind(Sketch sketch, OnItemClickListener listener) {
       sketchName.setText(sketch.getSketchTitle());
 //     sketchThumbnail.setImageDrawable(sketch.getThumbnail());
       sketchThumbnail.setImageDrawable(context.getDrawable(R.drawable.sketch2));
+      bind(sketch, listener);
     }
 
   }

@@ -1,10 +1,12 @@
 package io.github.processthis.client.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.MutableLiveData;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.data.DataBufferObserver;
 import com.google.android.gms.common.data.DataBufferObserver.Observable;
 import io.github.processthis.client.BuildConfig;
@@ -44,8 +46,16 @@ public class MainViewModel extends AndroidViewModel
    */
   public MainViewModel(@NonNull Application application) {
     super(application);
-    oauthHeader = String.format(BuildConfig.AUTHORIZATION_FORMAT,
-        GoogleSignInService.getInstance().getAccount().getIdToken());
+    userId = "1cf96d61-3c68-42a5-a4a6-6711430efb04";
+    GoogleSignInAccount account = GoogleSignInService.getInstance().getAccount();
+
+    if (account != null) {
+      oauthHeader = String.format(BuildConfig.AUTHORIZATION_FORMAT, account.getIdToken());
+    }
+    else {
+      Log.d("Trace", "No oauth");
+      oauthHeader = "";
+    }
   }
 
   public Sketch getSketch() {

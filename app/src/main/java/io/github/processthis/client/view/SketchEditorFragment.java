@@ -68,15 +68,6 @@ public class SketchEditorFragment extends Fragment {
 
     preview = frag.findViewById(R.id.sketchPreview);
 
-    /*preview.setWebChromeClient(new WebChromeClient() {
-      @Override
-      public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-        //Log the message here.
-        Log.d("TRACE", consoleMessage.message());
-
-        return super.onConsoleMessage(consoleMessage);
-      }
-    });*/
     preview.setWebViewClient(new WebViewClient() {
 
       @Override
@@ -107,9 +98,9 @@ public class SketchEditorFragment extends Fragment {
       }
     });
 
-
+    viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
     saveButton.setOnClickListener((view) -> {
-//      viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
       if(!sketchName.getText().toString().isEmpty()){
         Toast.makeText(getContext(), "You must name your sketch", Toast.LENGTH_LONG);
       }else{
